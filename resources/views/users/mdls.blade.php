@@ -1,7 +1,7 @@
 <div class="modal fade app-mdl" id="del-regs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header bg-gray-300 p-3">
+			<div class="modal-header bg-mdl-del p-3">
 				<h5 class="modal-title" id="exampleModalLabel">
 					<i class="bi bi-trash"></i> Eliminando registros
 				</h5>

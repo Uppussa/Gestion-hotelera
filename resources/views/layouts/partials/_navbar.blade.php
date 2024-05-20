@@ -36,6 +36,15 @@
                     </li>
                 @endforeach
     
+                @if(auth()->user()->level_cat_id==3)
+                    <li><hr class="dropdown-divider"/></li>
+                    <li>
+                        <a class="dropdown-item" href="{{route('myPermits')}}">
+                            <i class="fs-5 bi bi-check2-circle"></i> Permisos
+                        </a>
+                    </li>
+                @endif
+
                 <li><hr class="dropdown-divider" /></li>
                 <li>
                     <a href="{{route('logout')}}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

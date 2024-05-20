@@ -81,19 +81,10 @@ class AccountController extends Controller
         $data['title'] = 'Módulo';
         $data['tab'] = 'main';
         $data['url'] = Route::current()->getName();
-        if ($data['url'] !== '') {
-            $data['permiso'] = auth()->user()->isPermitUrl($data);
-            if ($data['permiso']) {
-                $data['title'] = $data['permiso']->module->desc_mod;
-                $data['tab'] = $data['permiso']->parentModule->nom_mod;
-
-                return view('account/'.$data['url'], $data);
-            } else {
-                redireccionar(route('dashboard'), 'Módulo no autorizado.', 'danger');
-            }
-        } else {
-            redireccionar(route('dashboard'), 'Dirección no encontrada.', 'danger');
-        }
+        $data['permiso'] = auth()->user()->isPermitUrl($data);
+        $data['title'] = 'Permisos';
+        $data['tab'] = 'myPermits';
+        return view('account/myPermits', $data);
     }
 
     public function loadImageUser(Request $request)

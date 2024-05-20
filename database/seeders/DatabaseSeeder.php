@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'nom' => 'Basic',
             'desc' => 'Basic',
             'level' => 1,
-            'icon' => 'bi bi-person',
+            'icon' => 'fas fa-user',
             'color' => 'success',
             'slug' => 'basic',
             'filter_on' => 'users',

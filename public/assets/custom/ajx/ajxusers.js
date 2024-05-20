@@ -41,6 +41,11 @@ $(document).on("submit", ".form-search", function (event) {
 });
 
 function load(page) {
+	$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 	$.ajax({
 		type: 'POST',
 		url: base_url + '/loadUsers',
@@ -53,11 +58,11 @@ function load(page) {
 			limite: limite,
 			url: 	url,
 			order: 	order,
-			order_by: 	order_by,
-			act_fc: 	($('#chk-act-fc').is(':checked')?1:0),
-			dt_ini: 	$('#dt-ini').val(),
-			dt_fin: 	$('#dt-fin').val(),
-			user: 		user,
+			order_by: order_by,
+			act_fc: ($('#chk-act-fc').is(':checked')?1:0),
+			dt_ini: $('#dt-ini').val(),
+			dt_fin: $('#dt-fin').val(),
+			user: 	user,
 		},
 		beforeSend: function(objeto) {
 			$('.btn-search').html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Buscando...');
@@ -178,7 +183,7 @@ $("#form-up-edo").submit(function (event) {
 			$("#btn-up-edo").attr("disabled", false);
 			if (datos.tipo == "success") {
 				$("#btn-close-mdl-up-edo").trigger("click");
-				notify_msg(datos.icon, " ", datos.msg, "#", datos.tipo);
+				notifyMsg(datos.msg, '#', datos.tipo, '');
                 $("#form-up-edo")[0].reset();
                 load(1);
 			}else{
@@ -203,34 +208,39 @@ $("#form-up-edo").submit(function (event) {
 	event.preventDefault();
 });
 
-function loadProfileUser(user) {
+function loadInfoUser(reg) {
+	$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 	$.ajax({
-		url: 		base_url + "/loadProfileUser",
+		url: 		base_url + "/loadInfoUser",
 		method: 	"POST",
 		dataType: 	"JSON",
 		type: 		"POST",
 		data: {
-			reg: user,
+			reg: reg,
 		},
 		beforeSend: function (objeto) {
-			$("#div-cnt-profile").html('<div class="row mx-1 mt-3"><div class="col-md-12"><div class="alert alert-dark text-center" role="alert">'+
-				'<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Cargando</div></div></div>');
+			$("#div-cnt-profile").html('<div class="alert alert-dark text-center" role="alert">'+
+				'<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Cargando</div>');
 		},
 		success: function (data) {
 			$("#div-cnt-profile").html(data.results);
 		},
 		error: function (response) {
-			$("#div-cnt-profile").html('<div class="row mx-1 mt-3"><div class="col-md-12"><div class="alert alert-danger text-center" role="alert"><i class="bi bi-x-circle"></i> '+
-				'Error interno, intenta más tarde.</div></div></div>');
+			$("#div-cnt-profile").html('<div class="alert alert-danger text-center" role="alert"><i class="bi bi-x-circle"></i> '+
+				'Error interno, intenta más tarde.</div>');
 		}
 	});
 };
 
-$(document).on("submit", ".form-up-profile", function (e) {
+$(document).on("submit", ".form-up-reg", function (e) {
 	var parametros = $(this).serialize();
 	$.ajax({
 		type: "POST",
-		url: base_url + "/upProfileUser",
+		url: base_url + "/upInfoReg",
 		data: parametros,
 		dataType: "json",
 		beforeSend: function (objeto) {
@@ -241,26 +251,26 @@ $(document).on("submit", ".form-up-profile", function (e) {
 			$("#btn-up-user").html('<i class="bi bi-check-circle"></i> Actualizar');
 			$("#btn-up-user").attr("disabled", false);
 			if (datos.tipo == 'success') {
-				loadProfileUser(user);
+				loadInfoUser(reg);
 			}
             if(datos.errors){
                 jQuery.each(datos.errors, function(key, value){
-                    notify_msg('bi bi-x-circle', " ", value, "#", 'danger');
+					notifyMsg(value, '#', 'danger', '');
                 });
             }else{
-                notify_msg(datos.icon, " ", datos.msg, "#", datos.tipo);
+				notifyMsg(datos.msg, '#', datos.tipo, '');
             }
 		},
 		error: function (data) {
 			$("#btn-up-user").html('<i class="bi bi-check-circle"></i> Actualizar');
 			$("#btn-up-user").attr("disabled", false);
-			notify_msg("bi bi-x-circle", " ", "Error interno, intenta más tarde", "#", "danger");
+			notifyMsg('Error interno, intenta más tarde', '#', 'danger', '');
 		}
 	});
 	e.preventDefault();
 });
 
-$(document).on("submit", ".form-up-password-user", function (e) {
+$(document).on("submit", ".form-up-password", function (e) {
 	var parametros = $(this).serialize();
 	$.ajax({
 		type: "POST",
@@ -274,47 +284,97 @@ $(document).on("submit", ".form-up-password-user", function (e) {
 		success: function (datos) {
 			$("#btn-up-passwd").html('<i class="bi bi-check-circle"></i> Actualizar');
 			$('#btn-up-passwd').attr("disabled", false);
-			$(".form-up-password-user")[0].reset();
+			$(".form-up-password")[0].reset();
             if(datos.errors){
                 jQuery.each(datos.errors, function(key, value){
-                    notify_msg('bi bi-x-circle', " ", value, "#", 'danger');
+					notifyMsg(value, '#', 'danger', '');
                 });
             }else{
-                notify_msg(datos.icon, " ", datos.msg, "#", datos.tipo);
+				notifyMsg(datos.msg, '#', datos.tipo, '');
             }
 		},
 		error: function (data) {
 			$("#btn-up-passwd").html('<i class="bi bi-check-circle"></i> Actualizar');
 			$('#btn-up-passwd').attr("disabled", false);
-			notify_msg("bi bi-x-circle", " ", "Error interno, intenta más tarde.", "#", "danger");
+			notifyMsg('Error interno, intenta más tarde.', '#', 'danger', '');
 		}
 	});
 	e.preventDefault();
 });
 
-function generatePasswd() {
-	var result = "";
-	var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	for (var i = 0; i < 8; i++) {
-		result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-	}
-	return result;
-}
+function loadPermitsUser(reg) {
+	$.ajax({
+		url: base_url + "/loadPermitsUser",
+		method: "POST",
+		dataType: "JSON",
+		type: "POST",
+		data: {
+			reg: reg
+		},
+		beforeSend: function (objeto) {
+            $("#div-cnt-permits").html('<div class="col-md-12"><div class="alert alert-dark alert-dismissible text-center" role="alert">' +
+				'<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Cargando</div></div>');
+		},
+		success: function (data) {
+			$("#div-cnt-permits").html("");
+			$("#div-cnt-permits").html(data.results);
+		},
+		error: function (response) {
+			$("#div-cnt-permits").html('<div class="col-md-12"><div class="alert alert-danger alert-dismissible text-center" role="alert"><i class="bi bi-exclamation-circle"></i>' +' Error interno, intenta más tarde.</div></div>');
+		}
+	})
+};
 
-function setPasswd(txt, btn) {
-	$("#" + txt).val(generatePasswd());
-
-	$(btn).attr("disabled", true);
-	$(btn).html('<i class="bi bi-check-circle"></i> Hecho');
-	setTimeout(function () {
-		$(btn).attr("disabled", false);
-		$(btn).html('<i class="bi bi-arrow-repeat"></i> Generar');
-	}, 500);
-}
+$(document).on("click", ".add-permit", function (e) {
+    var status 	= $(this).is(':checked') ? 1 : 0;
+    var sub = $(this).data('sub');
+    var moduleId = $(this).data('moduleid');
+    var subModuleId = $(this).data('submoduleid');
+    var userId = $(this).data('userid');
+    var urlSubModule = $(this).data('urlsubmodule');
+    $.ajax({
+        type: "POST",
+        dataType: "JSON",
+        method: "POST",
+        url: base_url + "/asignPermit",
+        data: {
+            status: status,
+            moduleId: moduleId,
+            subModuleId: subModuleId,
+            userId: userId,
+            urlSubModule: urlSubModule,
+        },
+        beforeSend: function (objeto) {
+            $("#span-"+sub).html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span>');
+            $('#permit-'+sub).attr("disabled", true);
+        },
+        success: function (datos) {
+            if(datos.type=='danger'){
+                if (status==0) {
+                    $('#permit-' + sub).prop('checked', true);
+                }else{
+                    $('#permit-' + sub).prop('checked', false);
+                }
+            }
+            notifyMsg(datos.msg, '#', datos.type, '');
+            $('#permit-'+sub).attr("disabled", false);
+            $("#span-"+sub).html('');
+        },
+        error: function (data) {
+            $("#span-"+sub).html('');
+            $('#permit-'+sub).attr("disabled", false);
+            if (status==0) {
+                $('#permit-' + sub).prop('checked', true);
+            }else{
+                $('#permit-' + sub).prop('checked', false);
+            }
+            notifyMsg(data.statusText, '#', 'danger', '');
+        }
+    });
+    //e.preventDefault();
+});
 
 $(document).on("submit", ".form-add-reg", function (e) {
-	const editorData = editor.getData();
-	$(".txt-cv").val(editorData);
 	var parametros = $(this).serialize();
 	$.ajax({
 		type: 		"POST",
@@ -326,57 +386,85 @@ $(document).on("submit", ".form-add-reg", function (e) {
 		cache: 			false,
 		processData: 	false,
 		beforeSend: function(objeto) {
-            $('#btn-add-emp').attr("disabled", true);
-			$("#btn-add-emp").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Agregando');
+            $('#btn-add-reg').attr("disabled", true);
+			$("#btn-add-reg").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Agregando');
 		},
 		success: function(datos) {
-			$("#btn-add-emp").html('<i class="bi bi-check-circle"></i> Continuar');
-			$('#btn-add-emp').attr("disabled", false);
+			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Continuar');
+			$('#btn-add-reg').attr("disabled", false);
 			if (datos.tipo == "success") {
-				$('#btn-add-emp').attr("disabled", true);
+				$('#btn-add-reg').attr("disabled", true);
 				setTimeout(function () {
 					$(window).attr('location', datos.url);
 				}, 2000);
 			}
             if(datos.errors){
                 jQuery.each(datos.errors, function(key, value){
-                    notify_msg('bi bi-x-circle', " ", value, "#", 'danger');
+					notifyMsg(value, '#', 'danger', '');
                 });
             }else{
-                notify_msg(datos.icon, " ", datos.msg, "#", datos.tipo);
+				notifyMsg(datos.msg, '#', datos.tipo, '');
             }
 		},
 		error: function(data) {
-			$("#btn-add-emp").html('<i class="bi bi-check-circle"></i> Continuar');
-			$("#btn-add-emp").attr("disabled", false);
-			notify_msg("bi bi-x-circle", " ", "Error interno, intenta más tarde.", "#", "danger");
+			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Continuar');
+			$("#btn-add-reg").attr("disabled", false);
+			notifyMsg('Error interno, intenta más tarde.', '#', 'danger', '');
 		}
 	});
 	e.preventDefault();
 });
 
-function loadPermitsUser(user) {
-	$.ajax({
-		url: base_url + "/loadPermitsUser",
-		method: "POST",
-		dataType: "JSON",
-		type: "POST",
-		data: {
-			user: user
-		},
-		beforeSend: function (objeto) {
-            $("#div-cnt-permits").html('<div class="col-md-12"><div class="alert alert-dark alert-dismissible text-center" role="alert">' +
-				'<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Cargando</div></div>');
-		},
-		success: function (data) {
-			$("#div-cnt-permits").html("");
-			$("#div-cnt-permits").html(data.list);
-		},
-		error: function (response) {
-			$("#div-cnt-permits").html('<div class="col-md-12"><div class="alert alert-danger alert-dismissible text-center" role="alert"><i class="bi bi-exclamation-circle"></i>' +' Error interno, intenta más tarde.</div></div>');
-		}
-	})
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $(document).on("change", ".slt-lvl", function () {
 	var lvl 	= $(this).val();

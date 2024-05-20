@@ -80,4 +80,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Cat::class, 'level_cat_id', 'id')->where('filter_on', 'users');
     }
+
+    public function permisos()
+    {
+        return $this->hasMany(Permit::class, 'user_id', 'id')
+            ->where('status', 1)
+            ->whereHas('module', function (Builder $q) {
+                $q->where('modules.status', 1);
+            });
+    }
 }

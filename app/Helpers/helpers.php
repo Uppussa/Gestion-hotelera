@@ -585,6 +585,35 @@ function todayMasD($mas = 0)
     return $dia;
 }
 
+function inputEmail($field, $label = false, $value = '', $icon = 'bi bi-at', $options = [])
+{
+    $optionsField = getFieldOptions(Arr::except($options, ['suffix', 'prefix']), $field);
+    $optionsField['class'] = $optionsField['class'].' form-control';
+    $component = '<div class="input-group">
+                    <span class="has-float-label">
+                        <input type="email" '.attributes($optionsField).' name="'.$field.'" autocomplete="off" value="'.$value.'">
+                        <label for="'.$field.'">'.($label != false ? $label : '').'</label>
+                        <i class="'.$icon.' form-control-feedback"></i>
+                    </span>
+                </div>';
+
+    return $component;
+}
+
+function inputDate($field, $label = false, $value = '', $options = [])
+{
+    $optionsField = getFieldOptions(Arr::except($options, ['suffix', 'prefix']), $field);
+    $optionsField['class'] = $optionsField['class'].' form-control';
+    $component = '<div class="form-group">
+                        <span class="has-float-label">
+                            <input type="date" '.attributes($optionsField).' name="'.$field.'" autocomplete="off" value="'.$value.'">
+                            <label for="'.$field.'">'.($label != false ? $label : '').'</label>
+                        </span>
+                    </div>';
+
+    return $component;
+}
+
 function inputText($field, $label = false, $value = null, $icon = 'bi bi-card-text', $options = [])
 {
     $optionsField = getFieldOptions(Arr::except($options, ['suffix', 'prefix']), $field);

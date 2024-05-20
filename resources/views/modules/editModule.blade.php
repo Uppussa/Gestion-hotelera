@@ -64,7 +64,6 @@
 	<script src="{{asset('public/assets/custom/ajx/ajxmodule.js')}}"></script>
 	<script>
 		$(document).ready(function() {
-            let editor;
             reg = {{$reg->id}};
             loadInfoReg(reg);
             loadSubModules(reg);

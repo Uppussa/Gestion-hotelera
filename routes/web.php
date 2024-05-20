@@ -35,6 +35,12 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::post('loadUsers', 'UserController@loadUsers')->name('loadUsers');
     Route::get('editUser/{reg}', 'UserController@editUser')->name('editUser');
     Route::get('addUser', 'UserController@addUser')->name('addUser');
+    Route::post('delUser', 'UserController@delUser')->name('delUser');
+    Route::match(['get', 'post'], 'loadInfoUser', 'UserController@loadInfoUser')->name('loadInfoUser');
+    Route::match(['get', 'post'], 'upInfoReg', 'UserController@upInfoReg')->name('upInfoReg');
+    Route::match(['get', 'post'], 'upPasswordUser', 'UserController@upPasswordUser')->name('upPasswordUser');
+    Route::match(['get', 'post'], 'loadPermitsUser', 'UserController@loadPermitsUser')->name('loadPermitsUser');
+    Route::post('storeUser', 'UserController@storeUser')->name('storeUser');
 
     //account
     Route::get('profile', 'AccountController@profile')->name('profile');

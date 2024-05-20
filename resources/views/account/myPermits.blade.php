@@ -1,6 +1,6 @@
 @extends('layouts.appDash')
 @section('breadcrumb')
-	@include('layouts.partials._breadcrumbs')
+	
 @endsection
 
 @section('content')
