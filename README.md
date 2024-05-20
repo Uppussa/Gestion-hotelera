@@ -19,6 +19,25 @@ Un dashboar utilizando Laravel 11 con algunas características esenciales desarr
 - Recuperación de contraseña
 - Uso de imágenes
 
+## Implmentación
+
+- Si se usa XAMPP crear la base de datos con nombre **lnxdash**
+- Cambiar el nombre del archivo env => .env
+- Configurar la url del proyecto
+- En caso de ser necesario, configurar los accesos de base de datos contraseñas
+- Ejecutar migraciones de base de datos desde laravel
+
+```
+php artisan migrate:fresh --seed
+```
+
+## Pruebas
+Para las pruebas correspondientes abrir el navegador con la ruta que se configure:
+
+<http://localhost/lnxdash>
+
+* El correo por defecto para usuario root es andy@dev.com y contraseña es holamundo
+
 ## Capturas
 
 ![alt tag](1.png)
