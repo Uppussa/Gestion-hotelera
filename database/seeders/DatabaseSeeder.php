@@ -150,5 +150,41 @@ class DatabaseSeeder extends Seeder
             'sub_module_id' =>14,
             'user_id' => 1,
         ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'listPosts',
+            'module_id' => 15,
+            'sub_module_id' =>16,
+            'user_id' => 1,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'editPost',
+            'module_id' => 15,
+            'sub_module_id' =>17,
+            'user_id' => 1,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'addPost',
+            'module_id' => 15,
+            'sub_module_id' =>18,
+            'user_id' => 1,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'listPosts',
+            'module_id' => 15,
+            'sub_module_id' =>19,
+            'user_id' => 1,
+        ]);
     }
 }

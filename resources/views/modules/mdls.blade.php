@@ -61,14 +61,13 @@
 						<div class="col-md-3 mb-3">
 							<div class="input-group">
 								<span class="has-float-label">
-									<!-- pattern="[a-z]{4,64}" -->
 									<input type="text" class="form-control onlylettersspace" id="txt-nom" name="nom" placeholder=" " title="Nombre de sección ( sólo letras minúsculas, 4-30 caracteres)" required="" maxlength="30">
 									<label for="txt-nom">Nombre:</label>
 									<i class="bi bi-justify form-icon"></i>
 								</span>
 							</div>
 						</div>
-						<div class="col-md-5 mb-3">
+						<div class="col-md-4 mb-3">
 							<div class="input-group">
 								<span class="has-float-label">
 									<input type="text" class="form-control " id="txt-desc-add" name="desc" placeholder=" " required="required">
@@ -77,12 +76,24 @@
 								</span>
 							</div>
 						</div>
-						<div class="col-md-4 mb-3">
+						<div class="col-md-3 mb-3">
 							<div class="input-group">
 								<span class="has-float-label">
 									<input type="text" class="form-control lowercase" id="txt-icon" name="icon" placeholder=" " required="">
 									<label for="txt-icon">Ícono</label>
 									<i class="bi bi-boxes form-icon"></i>
+								</span>
+							</div>
+						</div>
+
+						<div class="col-md-2 mb-3">
+							<div class="input-group">
+								<span class="has-float-label">
+									<select class="form-select" name="ype" id="slt-type" required="">
+										<option value="module" selected="selected">Módulo</option>
+										<option value="widget">Widget</option>
+									</select>
+									<label for="slt-color">Tipo</label>
 								</span>
 							</div>
 						</div>
@@ -113,6 +124,7 @@
 								</span>
 							</div>
 						</div>
+
 						<div class="col-md-2 mb-3">
 							<div class="input-group">
 								<span class="has-float-label">

@@ -54,4 +54,11 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::post('loadImageUser', 'AccountController@loadImageUser')->name('loadImageUser');
     Route::post('upImgUser', 'AccountController@upImgUser')->name('upImgUser');
     Route::post('upProfile', 'AccountController@upProfile')->name('upProfile');
+
+    //users
+    Route::get('listPosts', 'PostController@listPosts')->name('listPosts');
+    Route::post('loadPosts', 'PostController@loadPosts')->name('loadPosts');
+    Route::post('getLastPosts', 'PostController@getLastPosts')->name('getLastPosts');
+    Route::get('editPost/{reg}', 'PostController@editPost')->name('editPost');
+    Route::get('addPost', 'PostController@addPost')->name('addPost');
 });

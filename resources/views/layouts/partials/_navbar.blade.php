@@ -12,8 +12,27 @@
     </form>
     <!-- Navbar-->
 
-    <ul class="no-cerrar navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+
         <li class="nav-item dropdown">
+            <button class="text-decoration-none text-white dropdown-toggle btn btn-link" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (dark)">
+                <i id="i-icon-them" class="bi bi-sun-fill text-white fs-4"></i>
+            </button>
+            <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="bd-theme-text">
+                <li>
+                    <button type="button" class="dropdown-item active" data-bs-theme-value="light" aria-pressed="true">
+                        Ligth <i class="bi bi-sun-fill float-end"></i>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item" data-bs-theme-value="dark" aria-pressed="false">
+                        Dark <i class="bi bi-moon-stars-fill float-end"></i>
+                    </button>
+                </li>
+            </ul>
+        </li>
+
+        <li class="no-cerrar nav-item dropdown">
             <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
                 <img src="{{(!is_null(auth()->user()->avatar) && auth()->user()->avatar!='none.png'? asset(auth()->user()->avatar) : asset('public/assets/custom/images/404.png'))}}" alt="mdo" width="32" height="32" class="rounded-circle"> {{ auth::user()->name }}
             </button>

@@ -232,11 +232,19 @@ class ModuleController extends Controller
                                         <div class="col-lg-3 col-md-4 mb-3">'.
                                             inputText('desc', 'Descripción: *', old('desc', $reg->desc), 'bi bi-card-text', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
                                         </div>
+
+                                        <div class="col-lg-3 col-md-2 col-sm-6 col-6 mb-3">'.
+                                            inputText('icon', 'Ícono:', old('icon', $reg->icon), $reg->icon, ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
+                                        </div>
+
+                                        <div class="col-lg-2 mb-3">
+                                            '.inputSelect('type', 'Tipo:', $reg->type,
+                                                ['module' => 'Módulo',
+                                                    'widget' => 'Widget',], ['required' => 'required']).'
+                                        </div>
+
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">'.
                                             inputText('url_module', 'Url:', old('url_module', $reg->url_module), 'bi bi-link', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
-                                        </div>
-                                        <div class="col-lg-2 col-md-2 col-sm-6 col-6 mb-3">'.
-                                            inputText('icon', 'Ícono:', old('icon', $reg->icon), $reg->icon, ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
                                         </div>
 
                                         <div class="col-lg-2 mb-3">
@@ -318,20 +326,20 @@ class ModuleController extends Controller
                                     <div class="col-lg-3 col-md-4 mb-3">'.
                                         inputText('desc', 'Descripción: *', old('desc', $reg->desc), 'bi bi-card-text', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
                                     </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">'.
-                                        inputText('url_module', 'Url:', old('url_module', $reg->url_module), 'bi bi-link', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-6 mb-3">'.
+                                    <div class="col-lg-3 col-md-2 col-sm-6 col-6 mb-3">'.
                                         inputText('icon', 'Ícono:', old('icon', $reg->icon), $reg->icon, ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
                                     </div>
-                                </div>
-                                <div class="row">
+                                
                                     <div class="col-lg-2 mb-3">
                                     '.inputSelect('type', 'Tipo:', $reg->type,
                                             ['module' => 'module',
                                                 'widget' => 'widget', ], ['class' => 'slt-tipo', 'required' => 'required']).'
                                     </div>
                                 
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">'.
+                                        inputText('url_module', 'Url:', old('url_module', $reg->url_module), 'bi bi-link', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off']).'
+                                    </div>
+
                                     <div class="col-lg-2 t-modules mb-3">
                                     '.inputSelect('color', 'Color:', $reg->color,
                                                     ['info' => 'info',

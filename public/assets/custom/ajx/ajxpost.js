@@ -5,6 +5,7 @@ var order_by 	= "id";
 var search 		= "";
 var url 		= "";
 var user 		= 0;
+var totalPosts 	= 0;
 var table;
 var toolbarBase = document.querySelector('[data-kt-user-table-toolbar="base"]');
 var toolbarSelected = document.querySelector('[data-kt-user-table-toolbar="selected"]');
@@ -48,7 +49,7 @@ function load(page) {
     });
 	$.ajax({
 		type: 'POST',
-		url: base_url + '/loadUsers',
+		url: base_url + '/loadPosts',
 		method: 'POST',
 		dataType: 'JSON',
 		data: {
@@ -74,6 +75,7 @@ function load(page) {
 			$('#h5-cnt-total').html('Resultados: '+res.total);
 			$('.btn-search').html('<i class="bi bi-search"></i>');
             checkedState = false;
+			totalPosts = res.total;
             count = 0;
             list = [];
 		},
@@ -415,53 +417,37 @@ $(document).on("submit", ".form-add-reg", function (e) {
 	e.preventDefault();
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function getLastPosts() {
+	$.ajax({
+		url: base_url + "/getLastPosts",
+		method: "POST",
+		dataType: "JSON",
+		type: "POST",
+		data: {
+			totalPosts: totalPosts,
+			page: 	1,
+			search: search,
+			filter: filter,
+			limite: limite,
+			url: 	url,
+			order: 	order,
+			order_by: order_by,
+			act_fc: ($('#chk-act-fc').is(':checked')?1:0),
+			dt_ini: $('#dt-ini').val(),
+			dt_fin: $('#dt-fin').val(),
+			user: 	user,
+		},
+		beforeSend: function (objeto) {
+            console.log('Consultando si hay registros nuevos cada 5 segundos.');
+		},
+		success: function (data) {
+			if(data.data!=''){
+				$('#table-posts').prepend(data.data);
+				totalPosts = data.total;
+			}
+		},
+		error: function (response) {
+			console.log('Error '+response.statusText);
+		}
+	})
+};
