@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="card-body pb-0">
-        <form class="form-add-reg" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        <form class="form-add-reg" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-10 mb-3">
@@ -50,15 +50,17 @@
 	<script src="{{asset('public/assets/custom/ajx/ajxpost.js')}}"></script>
 	<script>
 		$(document).ready(function() {
-            let editor;
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            let editor;
             ClassicEditor.create(document.querySelector('.cnt-post'), {
                 ckfinder: {
                     uploadUrl: base_url+'/upload',
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 height: '300px',
                 toolbar: {

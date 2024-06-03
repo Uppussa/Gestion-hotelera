@@ -272,38 +272,6 @@ $(document).on("submit", ".form-up-reg", function (e) {
 	e.preventDefault();
 });
 
-$(document).on("submit", ".form-up-password", function (e) {
-	var parametros = $(this).serialize();
-	$.ajax({
-		type: "POST",
-		dataType: "JSON",
-		url: base_url + "/upPasswordPost",
-		data: parametros,
-		beforeSend: function (objeto) {
-            $('#btn-up-passwd').attr("disabled", true);
-			$("#btn-up-passwd").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Actualizando...');
-		},
-		success: function (datos) {
-			$("#btn-up-passwd").html('<i class="bi bi-check-circle"></i> Actualizar');
-			$('#btn-up-passwd').attr("disabled", false);
-			$(".form-up-password")[0].reset();
-            if(datos.errors){
-                jQuery.each(datos.errors, function(key, value){
-					notifyMsg(value, '#', 'danger', '');
-                });
-            }else{
-				notifyMsg(datos.msg, '#', datos.tipo, '');
-            }
-		},
-		error: function (data) {
-			$("#btn-up-passwd").html('<i class="bi bi-check-circle"></i> Actualizar');
-			$('#btn-up-passwd').attr("disabled", false);
-			notifyMsg('Error interno, intenta más tarde.', '#', 'danger', '');
-		}
-	});
-	e.preventDefault();
-});
-
 function loadPermitsUser(reg) {
 	$.ajax({
 		url: base_url + "/loadPermitsPost",
@@ -329,6 +297,8 @@ function loadPermitsUser(reg) {
 
 $(document).on("submit", ".form-add-reg", function (e) {
 	var parametros = $(this).serialize();
+	const editorData = editor.getData();
+	$(".cnt-post").val(editorData);
 	$.ajax({
 		type: 		"POST",
 		dataType: 	"JSON",

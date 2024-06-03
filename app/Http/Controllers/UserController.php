@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Response;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {

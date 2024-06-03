@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Module;
 use App\Models\Cat;
+use Illuminate\Support\Str;
 use App\Models\Permit;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
@@ -30,48 +31,26 @@ class PostController extends Controller
 
     public function __construct(Post $model)
     {
-        $this->validationRulesUpProfile = [
-            'name' => 'required|string|max:100',
-            'email' => 'required|string|max:100|unique:users',
-            'cta_id' => ['required', 'integer'],
+        $this->validationRules = [
+            'title' => 'required|string|max:250',
+            'status' => 'required',
+            'content' => 'nullable|string|max:500',
+            'image' => 'nullable|string|max:500',
         ];
-        $this->attributeNamesUpProfile = [
-            'nombre' => 'nombre/área',
-            'email' => 'correo electrónico',
-            'cta_id' => 'oficina',
-            'client_id' => 'cliente',
+        $this->validationUpRules = [
+            'title' => 'required|string|max:250',
+            'status' => 'required|string|max:250',
+            'content' => 'nullable|string|max:500',
         ];
-        $this->errorMessagesUpProfile = [
-            'required' => 'El campo :attribute es obligatorio.',
-        ];
-
-        $this->validationRulesUpPassword = [
-            'password' => ['required', 'max:20'],
-        ];
-        $this->attributeNamesUpPassword = [
-            'password' => 'contraseña',
-        ];
-        $this->errorMessagesUpPassword = [
-            'required' => 'El campo :attribute es obligatorio.',
-        ];
-
-        $this->validationRulesAddUser = [
-            'name' => 'required|string|max:300',
-            'email' => 'required|email|max:100|unique:users',
-            'cta_id' => 'required|integer',
-            'tipo_emp' => 'required|integer',
-            'lvl_id' => 'required|integer',
-        ];
-        $this->attributeNamesAddUser = [
-            'name' => 'nombre o área',
-            'email' => 'email',
-            'cta_id' => 'oficina',
-            'tipo_emp' => 'tipo usuario',
-            'lvl_id' => 'nivel',
-            'client_id' => 'cliente',
+        $this->attributeNames = [
+            'title' => 'título',
+            'status' => 'estado',
+            'fc' => 'fecha',
+            'content' => 'contenido',
+            'image' => 'imagen',
         ];
         $this->errorMessages = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'requir ed' => 'El campo :attribute es obligatorio.',
         ];
 
         $this->model = $model;
@@ -116,6 +95,26 @@ class PostController extends Controller
         } else {
             redireccionar(route('dashboard'), 'Dirección no encontrada.', 'danger');
         }
+    }
+
+    public function storePost(Request $request)
+    {
+        $validator = Validator::make($request->all(), $this->validationRules, $this->errorMessages)->setAttributeNames($this->attributeNames);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } else {
+            $request['user_id'] = auth()->user()->id;
+
+            $request['slug'] = Str::of($request->title)->slug('-');
+
+            $reg = $this->model::create($request->all());
+
+            $msg = ['tipo' => 'success',
+                'icon' => 'fa fa-check',
+                'url' => route('editPost', $reg->id),
+                'msg' => 'Registro guardado, redireccionando', ];
+        }
+        return response()->json($msg);
     }
 
     public function delPost(Request $request)
@@ -364,12 +363,13 @@ class PostController extends Controller
             "url" => "",
         ];
         $file = $request->upload;
-        $nom_img = 'ck-' . Str::random(10) . '-' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-        $data['dir_files'] = 'uploads/posts/';
-        if (!is_dir($data['dir_files'])) {
-            mkdir($data['dir_files'], 0775, TRUE);
-        }
-        if ($file->move($data['dir_files'], $nom_img)) {
+        $nom_img = 'ck-' . str::random(10) . '-' . str::random(10) . '.' . $file->getClientOriginalExtension();
+        /*$data['dir_files'] = 'files/ckeditorimgs/';
+        if (!is_dir(env('pathFile') . $data['dir_files'])) {
+            mkdir(env('pathFile') . $data['dir_files'], 0775, TRUE);
+        }*/
+        if ($file->move(env('pathFile') . 'uploads/ckeditor/', $nom_img)) {
+            //if(!Storage::disk('public_uploads')->put('uploads/ckeditor', $file)){
             $response = [
                 'uploaded' => true,
                 "url" => route('imageckeditor', $nom_img),
@@ -380,10 +380,10 @@ class PostController extends Controller
 
     public function imageckeditor($image = "")
     {
-        $data['dir_files'] = 'uploads/posts/';
-        if ($image != "" && file_exists($data['dir_files'] . $image)) {
+        $data['dir_files'] = 'uploads/ckeditor/';
+        if ($image != "" && file_exists(env('pathFile') . $data['dir_files'] . $image)) {
             $img = env('baseFiles') . $data['dir_files'] . $image;
-            $mimeType = $data['dir_files'] . $image;
+            $mimeType = env('pathFile') . $data['dir_files'] . $image;
         } else {
             $img = env('baseFiles') . 'files/defaults/image404.png';
             $mimeType = 'image/png';

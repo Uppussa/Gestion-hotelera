@@ -61,9 +61,8 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::post('getLastPosts', 'PostController@getLastPosts')->name('getLastPosts');
     Route::get('editPost/{reg}', 'PostController@editPost')->name('editPost');
     Route::get('addPost', 'PostController@addPost')->name('addPost');
-
     Route::post('delPost', 'PostController@delPost')->name('delPost');
-
     Route::match(['get', 'post'], 'upload', 'Post@uploadImageCkeditor')->name('uploadImageCkeditor');
     Route::match(['get', 'post'], 'imageckeditor/{segment}', 'Post@imageckeditor')->name('imageckeditor');
+    Route::post('storePost', 'PostController@storePost')->name('storePost');
 });
