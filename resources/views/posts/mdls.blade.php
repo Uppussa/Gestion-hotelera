@@ -21,9 +21,8 @@
                             <span class="has-float-label">
                                 <select id="slt-edo" name="slt_edo" class="form-select form-control" required>
                                     <option value="" selected="" disabled="disabled">-- Seleccionar --</option>
-                                    <option value="1" data-icon="bi bi-check-circle" data-clase="bg-success" data-txt="Activo">Activar</option>
-                                    <option value="2" data-icon="fa fa-check-circle" data-clase="bg-success" data-txt="Bloquear">Bloquear</option>
-                                    <option value="3" data-icon="bi bi-check-circle" data-clase="bg-warning" data-txt="Banear">Banear</option>
+                                    <option value="1" data-icon="bi bi-check-circle" data-clase="bg-success" data-txt="Retirar">Retirar</option>
+                                    <option value="2" data-icon="fa fa-check-circle" data-clase="bg-success" data-txt="Publicar">Publicar</option>
                                     <option value="0" data-icon="bi bi-trash" data-clase="bg-danger" data-txt="Eliminar">Eliminar</option>
                                 </select>
                                 <label for="slt-edo">Acción</label>

@@ -4,13 +4,13 @@
 @endsection
 
 @section('content')
-@include('users.mdls')
+@include('posts.mdls')
 
 <div class="card mb-5 mb-xl-10">
     <div class="card-header border-0 d-none">
         <div class="card-title m-0">
             <h3 class="fw-bolder m-0">
-                <i class="far fa-clipboard-list"></i> Usuarios
+                <i class="far fa-clipboard-list"></i> Posts
             </h3>
         </div>
     </div>
@@ -103,7 +103,7 @@
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                             <div class="input-group justify-content-end desplegable">
-                                <a href="{{route('addUser')}}" class="btn btn-primary" title="Agregar registro">
+                                <a href="{{route('addPost')}}" class="btn btn-primary" title="Agregar registro">
                                     <i class="bi bi-plus-circle"></i> Agregar
                                 </a>
                             </div>

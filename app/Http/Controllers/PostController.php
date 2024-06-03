@@ -97,6 +97,48 @@ class PostController extends Controller
         }
     }
 
+    public function addPost(Request $request)
+    {
+        $data['title'] = 'Módulo';
+        $data['tab'] = 'main';
+        $data['url'] = $url = Route::current()->getName();
+        if ($url !== '') {
+            $data['permiso'] = auth()->user()->isPermitUrl($data);
+            if ($data['permiso']) {
+                $data['title'] = $data['permiso']->module->desc;
+                $data['tab'] = $data['permiso']->parentModule->nom;
+                $data['url'] = $data['permiso']->module->url_module;
+                $data['catsUser'] = Cat::where('status', 1)->where('filter_on', 'users')->orderBy('nom', 'asc')->get()->pluck('nom', 'id')->toArray();
+                return view('posts/'.$url, $data);
+            } else {
+                redireccionar(route('dashboard'), 'Módulo no autorizado.', 'danger');
+            }
+        } else {
+            redireccionar(route('dashboard'), 'Dirección no encontrada.', 'danger');
+        }
+    }
+
+    public function delPost(Request $request)
+    {
+        $list = explode(',', $request->list);
+        $edo = $request->slt_edo >= 0 ? $request->slt_edo : 1;
+        $update = 0;
+        foreach ($list as $id) {
+            if (Post::where('id', $id)->update(['status' => $edo])) {
+                $update++;
+            }
+        }
+        $estados[0] = 'eliminado'.($update > 1 ? 's' : '');
+        $estados[1] = 'retirado'.($update > 1 ? 's' : '');
+        $estados[2] = 'publicado'.($update > 1 ? 's' : '');
+        $estados[3] = 'baneado'.($update > 1 ? 's' : '');
+        $msg = ['tipo' => 'success',
+            'icon' => 'bi bi-check-circle',
+            'msg' => $update.' registro'.($update > 1 ? 's' : '').' '.$estados[$edo], ];
+
+        return response()->json($msg);
+    }
+
     public function loadPosts(Request $request)
     {
         $data['page'] = ($request->page) ? $request->page : 1;
@@ -313,5 +355,42 @@ class PostController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function uploadImageCkeditor(Request $request)
+    {
+        $response = [
+            'uploaded' => false,
+            "url" => "",
+        ];
+        $file = $request->upload;
+        $nom_img = 'ck-' . Str::random(10) . '-' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+        $data['dir_files'] = 'uploads/posts/';
+        if (!is_dir($data['dir_files'])) {
+            mkdir($data['dir_files'], 0775, TRUE);
+        }
+        if ($file->move($data['dir_files'], $nom_img)) {
+            $response = [
+                'uploaded' => true,
+                "url" => route('imageckeditor', $nom_img),
+            ];
+        }
+        return response()->json($response);
+    }
+
+    public function imageckeditor($image = "")
+    {
+        $data['dir_files'] = 'uploads/posts/';
+        if ($image != "" && file_exists($data['dir_files'] . $image)) {
+            $img = env('baseFiles') . $data['dir_files'] . $image;
+            $mimeType = $data['dir_files'] . $image;
+        } else {
+            $img = env('baseFiles') . 'files/defaults/image404.png';
+            $mimeType = 'image/png';
+        }
+        $contents = file_get_contents($img);
+        $response = Response::make($contents, 200);
+        $response->header('Content-Type', $mimeType);
+        return $response;
     }
 }

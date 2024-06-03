@@ -614,6 +614,17 @@ function inputDate($field, $label = false, $value = '', $options = [])
     return $component;
 }
 
+function inputTextArea($field, $label = false, $value = '', $icon = 'bi bi-card-text', $options = [])
+{
+    $optionsField = getFieldOptions(Arr::except($options, ['suffix', 'prefix']), $field);
+    $optionsField['class'] = $optionsField['class'].' form-control';
+    $component = '<label for="' . $field . '">' . ($label != false ? $label : '') .
+        '</label>
+                <textarea name="' . $field . '" rows="2" ' . attributes($optionsField) . '>' . $value . '</textarea>';
+
+    return $component;
+}
+
 function inputText($field, $label = false, $value = null, $icon = 'bi bi-card-text', $options = [])
 {
     $optionsField = getFieldOptions(Arr::except($options, ['suffix', 'prefix']), $field);

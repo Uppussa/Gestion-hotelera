@@ -173,7 +173,7 @@ $("#form-up-edo").submit(function (event) {
 	$.ajax({
 		type: "POST",
 		method: "POST",
-		url: base_url + "/delUser",
+		url: base_url + "/delPost",
 		data: parametros,
 		dataType: "JSON",
 		beforeSend: function (objeto) {
@@ -217,10 +217,10 @@ function loadInfoUser(reg) {
         }
     });
 	$.ajax({
-		url: 		base_url + "/loadInfoUser",
-		method: 	"POST",
-		dataType: 	"JSON",
-		type: 		"POST",
+		url: base_url + "/loadInfoPost",
+		method: "POST",
+		dataType: "JSON",
+		type: "POST",
 		data: {
 			reg: reg,
 		},
@@ -242,7 +242,7 @@ $(document).on("submit", ".form-up-reg", function (e) {
 	var parametros = $(this).serialize();
 	$.ajax({
 		type: "POST",
-		url: base_url + "/upInfoReg",
+		url: base_url + "/upInfoPost",
 		data: parametros,
 		dataType: "json",
 		beforeSend: function (objeto) {
@@ -277,7 +277,7 @@ $(document).on("submit", ".form-up-password", function (e) {
 	$.ajax({
 		type: "POST",
 		dataType: "JSON",
-		url: base_url + "/upPasswordUser",
+		url: base_url + "/upPasswordPost",
 		data: parametros,
 		beforeSend: function (objeto) {
             $('#btn-up-passwd').attr("disabled", true);
@@ -306,7 +306,7 @@ $(document).on("submit", ".form-up-password", function (e) {
 
 function loadPermitsUser(reg) {
 	$.ajax({
-		url: base_url + "/loadPermitsUser",
+		url: base_url + "/loadPermitsPost",
 		method: "POST",
 		dataType: "JSON",
 		type: "POST",
@@ -327,62 +327,13 @@ function loadPermitsUser(reg) {
 	})
 };
 
-$(document).on("click", ".add-permit", function (e) {
-    var status 	= $(this).is(':checked') ? 1 : 0;
-    var sub = $(this).data('sub');
-    var moduleId = $(this).data('moduleid');
-    var subModuleId = $(this).data('submoduleid');
-    var userId = $(this).data('userid');
-    var urlSubModule = $(this).data('urlsubmodule');
-    $.ajax({
-        type: "POST",
-        dataType: "JSON",
-        method: "POST",
-        url: base_url + "/asignPermit",
-        data: {
-            status: status,
-            moduleId: moduleId,
-            subModuleId: subModuleId,
-            userId: userId,
-            urlSubModule: urlSubModule,
-        },
-        beforeSend: function (objeto) {
-            $("#span-"+sub).html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span>');
-            $('#permit-'+sub).attr("disabled", true);
-        },
-        success: function (datos) {
-            if(datos.type=='danger'){
-                if (status==0) {
-                    $('#permit-' + sub).prop('checked', true);
-                }else{
-                    $('#permit-' + sub).prop('checked', false);
-                }
-            }
-            notifyMsg(datos.msg, '#', datos.type, '');
-            $('#permit-'+sub).attr("disabled", false);
-            $("#span-"+sub).html('');
-        },
-        error: function (data) {
-            $("#span-"+sub).html('');
-            $('#permit-'+sub).attr("disabled", false);
-            if (status==0) {
-                $('#permit-' + sub).prop('checked', true);
-            }else{
-                $('#permit-' + sub).prop('checked', false);
-            }
-            notifyMsg(data.statusText, '#', 'danger', '');
-        }
-    });
-    //e.preventDefault();
-});
-
 $(document).on("submit", ".form-add-reg", function (e) {
 	var parametros = $(this).serialize();
 	$.ajax({
 		type: 		"POST",
 		dataType: 	"JSON",
 		method: 	"POST",
-		url: 		base_url + "/storeUser",
+		url: base_url + "/storePost",
 		data: 		new FormData(this),
 		contentType: 	false,
 		cache: 			false,

@@ -20,14 +20,42 @@ Un dashboar utilizando Laravel 11 con algunas características esenciales desarr
 - Uso de imágenes
 
 ## Implementación
-- Clonar el proyecto en la ruta de xampp/htdocs/
+- Clonar el proyecto en la ruta de xampp/htdocs/ si se usa laragon o algún otro servidor de PHP, ubicarlo en el directorio por defecto.
+
 ```
 git clone https://gitlab.com/linuxitos/dashtool.git
 ```
+
+- Ejecutar composer install
+
+```
+composer install
+```
+
 - Si se usa XAMPP crear la base de datos con nombre **lnxdash**
 - Cambiar el nombre del archivo env => .env
+- Configurar los datos de la base de datos
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lnxdash
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
 - Configurar la url del proyecto de acuerdo a la ruta donde lo tengan almacenado, por defecto en xampp htdocs/
-- En caso de ser necesario, configurar los accesos de base de datos contraseñas
+
+Abrir el archivo .env y buscar la línea:
+
+```
+APP_URL=http://localhost/lnxdash/
+```
+
+Modificar en caso de ser necesario.
+
+
 - Ejecutar migraciones de base de datos desde laravel
 
 ```
@@ -38,6 +66,12 @@ php artisan migrate:fresh --seed
 
 ```
 php artisan serve
+```
+- Por defecto se crea el siguiente usuario y contraseña:
+
+```
+andy@dev.com
+holamundo
 ```
 
 ## Pruebas

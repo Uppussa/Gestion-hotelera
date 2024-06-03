@@ -30,6 +30,8 @@
 <link href="{{asset('public/assets/custom/css/styles.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('public/assets/custom/css/custom.css')}}" rel="stylesheet" type="text/css"/>
 
+<script src="{{asset('public/assets/vendor/ckeditor5/build/ckeditor.js')}}" type="text/javascript"></script>
+
 @if (auth()->check())
     <meta name="api-token" content="{{auth()->user()->api_token}}">
 @endif

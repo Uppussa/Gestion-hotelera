@@ -16,30 +16,22 @@
     </div>
     <div class="card-body pb-0">
         <form class="form-add-reg" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            @csrf
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-4 mb-3">
-                    {!!inputEmail('email', 'Email:', null, 'bi bi-at', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off'])!!}
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    {!!inputText('name', 'Nombre:', null, 'bi bi-file-text', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off'])!!}
+                <div class="col-md-10 mb-3">
+                    {!!inputText('title', 'Título:', null, 'bi bi-file-text', ['required' => 'required', 'placeholder' => ' ', 'autocomplete' => 'off'])!!}
                 </div>
 
                 <div class="col-md-2">
                     {!!inputSelect('status', 'Estado:', null,
                     ['1' => 'Activo',
-                        '2' => 'Bloqueado',
-                        '3' => 'Baneado',
-                        '0' => 'Eliminado'], ['required' => 'required'])!!}
+                        '1' => 'Privado',
+                        '2' => 'Publicado',], ['required' => 'required'])!!}
                 </div>
+            </div>
 
-                <div class="col-lg-2 col-md-2 col-sm-6 col-6">
-                    {!!inputDate('created_at', 'Registro:', null, ['placeholder'=>' '])!!}
-                </div>
-
-                <div class="col-md-2">
-                    {!!inputSelect('level_cat_id', 'Tipo:', null, $catsUser, ['class' => '', 'required' => 'required'])!!}
-                </div>
+            <div class="col-md-12 mt-3">
+                {!! inputTextArea('content', 'Contenido*', old('content', ''), 'bi bi-person-badge', ['placeholder'=>' ', 'class'=>'cnt-post', 'autocomplete'=>'off']) !!}
             </div>
 
             <div class="row justify-content-end">
@@ -55,10 +47,93 @@
 
 @endsection
 @section('script')
-	<script src="{{asset('public/assets/custom/ajx/ajxusers.js')}}"></script>
+	<script src="{{asset('public/assets/custom/ajx/ajxpost.js')}}"></script>
 	<script>
 		$(document).ready(function() {
-            
+            let editor;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            ClassicEditor.create(document.querySelector('.cnt-post'), {
+                ckfinder: {
+                    uploadUrl: base_url+'/upload',
+                },
+                height: '300px',
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'outdent',
+                        'indent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'undo',
+                        'redo',
+                        'alignment',
+                        'fontSize'
+                    ]
+                },
+                language: 'es',
+                image: {
+                    styles: [
+                        'alignLeft', 'alignCenter', 'alignRight'
+                    ],
+                    // Configure the available image resize options.
+                    resizeOptions: [
+                        {
+                            name: 'resizeImage:original',
+                            label: 'Original',
+                            value: null
+                        },
+                        {
+                            name: 'resizeImage:50',
+                            label: '50%',
+                            value: '50'
+                        },
+                        {
+                            name: 'resizeImage:75',
+                            label: '75%',
+                            value: '75'
+                        }
+                    ],
+                    // You need to configure the image toolbar, too, so it shows the new style
+                    // buttons as well as the resize buttons.
+                    toolbar: [
+                        'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+                        '|',
+                        'resizeImage',
+                        '|',
+                        'imageTextAlternative'
+                    ],
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+            })
+            .then( newEditor => {
+                window.editor = newEditor;
+                editor = newEditor;
+            })
+            .catch( error => {
+                console.error( 'Oops, something went wrong!' );
+                console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+                console.warn( 'Build id: q6l505nuvif2-xw3ce1wx5aqw' );
+                console.error( error );
+            });
 		});
 	</script>
 @endsection
