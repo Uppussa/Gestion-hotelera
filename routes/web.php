@@ -65,4 +65,7 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::match(['get', 'post'], 'upload', 'Post@uploadImageCkeditor')->name('uploadImageCkeditor');
     Route::match(['get', 'post'], 'imageckeditor/{segment}', 'Post@imageckeditor')->name('imageckeditor');
     Route::post('storePost', 'PostController@storePost')->name('storePost');
+    Route::post('loadImagePost', 'PostController@loadImagePost')->name('loadImagePost');
+    Route::post('upImgPost', 'PostController@upImgPost')->name('upImgPost');
+    Route::post('upPost', 'PostController@upPost')->name('upPost');
 });

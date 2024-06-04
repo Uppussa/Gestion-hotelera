@@ -117,6 +117,97 @@ class PostController extends Controller
         return response()->json($msg);
     }
 
+    public function editPost($id)
+    {
+        $data['title'] = 'Módulo';
+        $data['tab'] = 'main';
+        $data['url'] = $url = Route::current()->getName();
+        if ($url !== '') {
+            $data['permiso'] = auth()->user()->isPermitUrl($data);
+            if ($data['permiso']) {
+                $data['title'] = $data['permiso']->module->desc;
+                $data['tab'] = $data['permiso']->parentModule->nom;
+                $data['url'] = $data['permiso']->module->back->url_module;
+                $reg = Post::find($id);
+                if ($reg) {
+                    $data['reg'] = $reg;
+                    $data['backs'] = Module::where('type', 'module')->where('status', 1)->where('module_id', $reg->id)->get();
+                    return view('posts/'.$url, $data);
+                }else{
+                    redireccionar(route('dashboard'), 'Registro no encontrado.', 'danger');
+                }
+            } else {
+                redireccionar(route('dashboard'), 'Módulo no autorizado.', 'danger');
+            }
+        } else {
+            redireccionar(route('dashboard'), 'Dirección no encontrada.', 'danger');
+        }
+    }
+
+    public function upPost(Request $request)
+    {
+        $validator = Validator::make($request->all(), $this->validationUpRules, $this->errorMessages)->setAttributeNames($this->attributeNames);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } else {
+            $datos = $request->except(['id', '_token']);
+            if (Post::where('id', $request->id)->update($datos) >= 0) {
+                $reg = Post::find($request->id);
+                $msg = [
+                    'tipo' => 'success',
+                    'icon' => 'bi bi-check-circle',
+                    'url' => route('editPost', $reg),
+                    'msg' => 'Registro guardado, recargando',
+                ];
+            } else {
+                $msg = [
+                    'tipo' => 'danger',
+                    'icon' => 'bi bi-x-circle',
+                    'msg' => 'Error con el servidor de base de datos.',
+                ];
+            }
+        }
+
+        return response()->json($msg);
+    }
+
+    public function loadImagePost(Request $request)
+    {
+        $reg = $request->reg ? $request->reg : 0;
+        $reg = Post::find($reg);
+        $res['results'] = '<figure class="figure rounded"><img src="'.(!is_null($reg->image) && $reg->image!=''? asset($reg->image) : asset('public/assets/custom/images/404.png')).'" class="figure-img img-fluid rounded" alt="Image"></figure>';
+
+        return response()->json($res);
+    }
+
+    public function upImgPost(Request $request)
+    {
+        if ($request->file) {
+            $path = 'uploads/images/';
+            if (! is_dir(env('pathFile').$path)) {
+                mkdir(env('pathFile').$path, 0775, true);
+            }
+            $image = Str::random(4).'-'.Str::random(4);
+            $imageName = $image.'.'.$request->file->getClientOriginalExtension();
+
+            $request->file->move($path, $imageName);
+
+            $datos['image'] = $path.$imageName;
+            Post::where('id', $request->reg)->update($datos);
+            $msg = [
+                'msg' => 'Imagen actualizada correctamente',
+                'tipo' => 'success',
+                'icon' => 'bi bi-check-circle',
+            ];
+        } else {
+            $msg = ['type' => 'danger',
+                'icon' => 'bi bi-x-circle',
+                'msg' => 'Seleccione al menos una imagen.', ];
+        }
+
+        return response()->json($msg);
+    }
+
     public function delPost(Request $request)
     {
         $list = explode(',', $request->list);

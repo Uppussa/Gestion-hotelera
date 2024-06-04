@@ -97,6 +97,11 @@ class AccountController extends Controller
     {
         if ($request->file) {
             $path = 'uploads/images/';
+            
+            if (! is_dir(env('pathFile').$path)) {
+                mkdir(env('pathFile').$path, 0775, true);
+            }
+
             $image = Str::random(4).'-'.Str::random(4);
             $imageName = $image.'.'.$request->file->getClientOriginalExtension();
 

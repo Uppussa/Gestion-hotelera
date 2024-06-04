@@ -210,14 +210,14 @@ $("#form-up-edo").submit(function (event) {
 	event.preventDefault();
 });
 
-function loadInfoUser(reg) {
+function loadImagePost() {
 	$.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 	$.ajax({
-		url: base_url + "/loadInfoPost",
+		url: base_url + "/loadImagePost",
 		method: "POST",
 		dataType: "JSON",
 		type: "POST",
@@ -225,50 +225,136 @@ function loadInfoUser(reg) {
 			reg: reg,
 		},
 		beforeSend: function (objeto) {
-			$("#div-cnt-profile").html('<div class="alert alert-dark text-center" role="alert">'+
+			$("#div-cnt-reg").html('<div class="alert alert-dark text-center" role="alert">' +
 				'<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Cargando</div>');
 		},
 		success: function (data) {
-			$("#div-cnt-profile").html(data.results);
+			$("#div-cnt-reg").html(data.results);
 		},
 		error: function (response) {
-			$("#div-cnt-profile").html('<div class="alert alert-danger text-center" role="alert"><i class="bi bi-x-circle"></i> '+
+			$("#div-cnt-reg").html('<div class="alert alert-danger text-center" role="alert"><i class="bi bi-x-circle align-middle"></i> ' +
 				'Error interno, intenta más tarde.</div>');
 		}
 	});
 };
 
-$(document).on("submit", ".form-up-reg", function (e) {
-	var parametros = $(this).serialize();
-	$.ajax({
-		type: "POST",
-		url: base_url + "/upInfoPost",
-		data: parametros,
-		dataType: "json",
-		beforeSend: function (objeto) {
-            $("#btn-up-user").attr("disabled", true);
-			$("#btn-up-user").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Actualizando');
-		},
-		success: function (datos) {
-			$("#btn-up-user").html('<i class="bi bi-check-circle"></i> Actualizar');
-			$("#btn-up-user").attr("disabled", false);
-			if (datos.tipo == 'success') {
-				loadInfoUser(reg);
-			}
-            if(datos.errors){
-                jQuery.each(datos.errors, function(key, value){
-					notifyMsg(value, '#', 'danger', '');
-                });
-            }else{
-				notifyMsg(datos.msg, '#', datos.tipo, '');
-            }
-		},
-		error: function (data) {
-			$("#btn-up-user").html('<i class="bi bi-check-circle"></i> Actualizar');
-			$("#btn-up-user").attr("disabled", false);
-			notifyMsg('Error interno, intenta más tarde', '#', 'danger', '');
+$(document).on("change", ".formAddImgAny", function (e) {
+	var fl = document.getElementById('fileimages');
+	var ln = fl.files.length;
+	var formData = new FormData();
+
+	if (ln <= 0) {
+		notify_msg("bi bi-x-circle", " ", "Seleccione al menos una imagen.", "#", "danger");
+		return;
+	} else {
+		for (var i = 0; i < ln; i++) {
+			formData.append('file', $('#fileimages')[0].files[i]);
+			formData.append("reg", reg);
+			$.ajax({
+				url: base_url + "/upImgPost",
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				//cache: false,
+				processData: false,
+				xhr: function () {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener("progress", function (evt) {
+						if (evt.lengthComputable) {
+							var percentComplete = evt.loaded / evt.total;
+							percentComplete = parseInt(percentComplete * 100);
+							$('#progUpAnyImg').text(percentComplete + '%');
+							$('#progUpAnyImg').css('width', percentComplete + '%');
+						}
+					}, false);
+					return xhr;
+				},
+				beforeSend: function (objeto) {
+					$('#progUpAnyImg').removeAttr("class").attr("class", "bg-success text-center");
+					$('#progUpAnyImg').css('width', '0');
+					$('#btnUploadImgAny').attr("disabled", true);
+					$('#btnUploadImgAny').html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span>');
+				},
+				success: function (data) {
+					$('#progUpAnyImg').css('width', 100 + '%');
+					$('#progUpAnyImg').text('0%');
+					if (data.tipo == 'success') {
+						setTimeout(function () {
+							$('#progUpAnyImg').removeAttr("class").attr("class", "bg-default text-center");
+						}, 2000);
+						loadImagePost();
+					} else {
+						$('#progUpAnyImg').removeAttr("class").attr("class", "bg-danger text-center");
+						setTimeout(function () {
+							$('#progUpAnyImg').removeAttr("class").attr("class", "bg-default text-center");
+						}, 2000);
+					}
+					$('#btnUploadImgAny').attr("disabled", false);
+					$('#btnUploadImgAny').html('<i class="bi bi-cloud-upload"></i> Subir');
+					notifyMsg(data.msg, '#', data.tipo, '');
+				},
+				error: function (data) {
+					$('#btnUploadImgAny').attr("disabled", false);
+					$('#progUpAnyImg').css('width', 100 + '%');
+					$('#progUpAnyImg').text('0%');
+					$('#progUpAnyImg').removeAttr("class").attr("class", "bg-danger text-center");
+					$('#btnUploadImgAny').html('<i class="bi bi-cloud-upload"></i> Subir');
+					setTimeout(function () {
+						$('#progUpAnyImg').removeAttr("class").attr("class", "bg-default text-center");
+						$('#progUpAnyImg').text('0%');
+					}, 2000);
+					notifyMsg("Error interno, intenta más tarde.", '#', 'danger', '');
+				}
+			});
 		}
-	});
+	}
+	e.preventDefault();
+});
+
+$(document).on("submit", ".form-up-pos", function (e) {
+	const editorData = editor.getData();
+	$(".cnt-post").val(editorData);
+	if ($(".cnt-post").val() != '') {
+		$.ajax({
+			type: "POST",
+			dataType: "JSON",
+			method: "POST",
+			url: base_url + "/upPost",
+			data: new FormData(this),
+			contentType: false,
+			//cache: false,
+			processData: false,
+			beforeSend: function (objeto) {
+				$("#btn-up-post").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Validando...');
+				$('#btn-up-post').attr("disabled", true);
+			},
+			success: function (datos) {
+				$("#btn-up-post").html('<i class="bi bi-check-circle"></i> Actualizar');
+				$('#btn-up-post').attr("disabled", false);
+				if (datos.tipo == "success") {
+					$("#btn-up-post").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Actualizando');
+					$('#btn-up-post').attr("disabled", true);
+					setTimeout(function () {
+						$(window).attr('location', datos.url);
+					}, 2000);
+				}
+				if (datos.errors) {
+					jQuery.each(datos.errors, function (key, value) {
+						notifyMsg(value, '#', 'danger', '');
+					});
+				} else {
+					notifyMsg(datos.msg, '#', datos.tipo, '');
+				}
+			},
+			error: function (data) {
+				$("#btn-up-post").html('<i class="bi bi-check-circle"></i> Actualizar');
+				$("#btn-up-post").attr("disabled", false);
+				notifyMsg(data.statusText, '#', 'danger', '');
+			}
+		});
+	} else {
+		notify_msg("bi bi-x-circle", " ", "El contenido del artículo es necesario.", "#", "danger");
+	}
 	e.preventDefault();
 });
 
