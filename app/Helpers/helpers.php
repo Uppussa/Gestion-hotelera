@@ -593,7 +593,7 @@ function inputEmail($field, $label = false, $value = '', $icon = 'bi bi-at', $op
                     <span class="has-float-label">
                         <input type="email" '.attributes($optionsField).' name="'.$field.'" autocomplete="off" value="'.$value.'">
                         <label for="'.$field.'">'.($label != false ? $label : '').'</label>
-                        <i class="'.$icon.' form-control-feedback"></i>
+                        <i class="'.$icon.' form-control-icon"></i>
                     </span>
                 </div>';
 
