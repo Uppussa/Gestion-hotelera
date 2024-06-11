@@ -1,84 +1,134 @@
-/** float label inputs **/
 .has-float-label {
-    position: relative;
     width: 100%;
+    position: relative;
     z-index: 23;
 }
 
-    .has-float-label label {
-        position: absolute;
-        left: 0;
-        top: 0;
-        cursor: text;
-        font-size: 75%;
-        opacity: 1;
-        -webkit-transition: all .2s;
-        transition: all .2s;
-        top: -.5em;
-        left: 12px;
-        z-index: 3;
-        line-height: 1;
-        padding: 0 1px;
+.has-float-label label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: text;
+    font-size: 75%;
+    opacity: 1;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    top: -.5em;
+    left: 12px;
+    z-index: 3;
+    line-height: 1;
+    padding: 0 1px 0px 0px;
     }
 
-        .has-float-label label::after {
-            content: " ";
-            display: block;
-            position: absolute;
-            background: white;
-            height: 2px;
-            top: 50%;
-            left: -.2em;
-            right: -.2em;
-            z-index: -1;
-        }
+.has-float-label .form-control {
+    box-shadow: none !important;
+    border: 1px solid #dee2e6;
+}
 
-    .has-float-label .form-control::-webkit-input-placeholder {
-        opacity: 1;
-        -webkit-transition: all .2s;
-        transition: all .2s;
-    }
+[data-bs-theme=dark] .has-float-label label,
+.has-float-label>span {
+    color: #dee2e6 !important;
+    background-color: #212529;
+}
 
-    .has-float-label .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
-        opacity: 0;
-    }
+[data-bs-theme=light] .has-float-label label,
+.has-float-label>span {
+    color: #212529 !important;
+    background-color: #fff;
+}
 
-    .has-float-label .form-control:placeholder-shown:not(:focus) + label {
-        opacity: .5;
-        top: .5em;
+[data-bs-theme=dark] .has-float-label .form-control {
+    border: 1px solid #495057;
+}
+
+.has-float-label .form-control::-webkit-input-placeholder {
+    opacity: 1;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.has-float-label .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+    opacity: 0;
+}
+
+.has-float-label .form-control {
+    padding-left: 30px !important;
+}
+
+.has-float-label .form-control:placeholder-shown:not(:focus)+label {
+    opacity: .5;
+    top: .30em;
         font-weight: normal;
-    }
+    padding-left: 18px;
+}
 
 .input-group .has-float-label {
     display: table-cell;
 }
 
-    .input-group .has-float-label .form-control {
-        border-radius: 4px;
-    }
-
-    .input-group .has-float-label:not(:last-child) .form-control {
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    .input-group .has-float-label:not(:first-child) .form-control {
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-        margin-left: -1px;
-    }
-
-.has-float-label input:focus, .has-float-label textarea:focus, .has-float-label select:focus {
-    border-color: #0d47a1;
-    box-shadow: none;
+.input-group .has-float-label .form-control {
+    border-radius: 4px;
 }
 
-.has-float-label .form-control:placeholder-shown:not(:focus) + * {
+.input-group .has-float-label:not(:last-child) .form-control {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.input-group .has-float-label:not(:first-child) .form-control {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: -1px;
+}
+
+*/ .has-float-label input:focus,
+.has-float-label textarea:focus,
+.has-float-label select:focus {
+    border-color: #dee2e6;
+    box-shadow: none;
+    padding-left: 30px;
+}
+
+.has-float-label .form-control:placeholder-shown:not(:focus)+* {
     font-size: 100%;
     margin-top: 4px;
 }
 
-.form-icon {
+.has-float-label:last-child .form-control {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+/* /form input float label*/
+
+.form-control-icon {
+    position: absolute;
+    top: 2px;
+    /*right: 0;*/
+    left: 0;
+    z-index: 80;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.form-icon-passwd {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 989;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: auto;
+}
+
+/*.form-icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -91,6 +141,8 @@
     pointer-events: none;
     margin-right: 5px;
 }
+
+*/
 
 .form-icon-passwd {
 	position: absolute;

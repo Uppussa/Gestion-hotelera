@@ -16,7 +16,7 @@
                                     <div class="has-float-label">
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder=" ">
                                         <label for="email">{{ __('Email Address') }}</label>
-                                        <i class="bi bi-at form-icon"></i>
+                                        <i class="bi bi-person-circle form-control-icon"></i>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -31,7 +31,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="has-float-label">
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password">
+                                        <i class="bi bi-lock form-control-icon"></i>
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder=" ">
                                         <label for="password">{{ __('Password') }}</label>
                                         <i id="icon-eye" class="bi bi-eye-slash form-icon-passwd btn-show-passwd" data-passwd="password"></i>
                                         @error('password')
