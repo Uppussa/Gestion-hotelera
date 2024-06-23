@@ -66,6 +66,8 @@ Modificar en caso de ser necesario.
 
 - Ejecutar migraciones de base de datos desde laravel
 
+Para ésto, entrar al directorio del proyecto, y ejecutar los siguientes comandos:
+
 ```
 php artisan migrate:fresh --seed
 ```
