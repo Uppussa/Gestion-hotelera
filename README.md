@@ -88,14 +88,18 @@ holamundo
 
 Asignar permisos al proyecto para el usuario, tu-usuario cambiarlo por el nombre del usuario que se utilice
 
+Para ésto, desde la terminal ejecutar:
+
+** cambiar la ruta /opt/lampp/htdocs/ por la ruta donde esté instalado xampp, por si no está en la ruta por defecto.
+
 ```
-sudo chown -R daemon:tu-usuario lnxdash
+sudo chown -R daemon:tu-usuario /opt/lampp/htdocs/lnxdash
 ```
 
 Asignar permisos al directorio del proyecto.
 
 ```
-sudo chmod 775 -R lnxdash
+sudo chmod 775 -R /opt/lampp/htdocs/lnxdash
 ```
 
 
