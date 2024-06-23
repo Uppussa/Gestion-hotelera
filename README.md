@@ -32,6 +32,8 @@ Un dashboar utilizando Laravel 11 con algunas características esenciales desarr
 git clone https://gitlab.com/linuxitos/dashtool.git
 ```
 
+Remombrar el proyecto clonado a `dashtool` 
+
 - Ejecutar composer install
 
 ```
