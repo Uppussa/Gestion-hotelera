@@ -19,6 +19,12 @@ Un dashboar utilizando Laravel 11 con algunas características esenciales desarr
 - Recuperación de contraseña
 - Uso de imágenes
 
+## Requerimientos
+
+- Composer
+- GIT (opcional)
+- XAMPP > 8.2 ó PHP nativo > 8.2
+
 ## Implementación
 - Clonar el proyecto en la ruta de xampp/htdocs/ si se usa laragon o algún otro servidor de PHP, ubicarlo en el directorio por defecto.
 
@@ -73,6 +79,21 @@ php artisan serve
 andy@dev.com
 holamundo
 ```
+
+- Si usar alguna distro linux, necesitas asignarle permiso a la cerpeta del proyecto.
+
+Asignar permisos al proyecto para el usuario, tu-usuario cambiarlo por el nombre del usuario que se utilice
+
+```
+sudo chown -R daemon:tu-usuario lnxdash
+```
+
+Asignar permisos al directorio del proyecto.
+
+```
+sudo chmod 775 -R lnxdash
+```
+
 
 ## Pruebas
 Para las pruebas correspondientes abrir el navegador con la ruta que se configure:
