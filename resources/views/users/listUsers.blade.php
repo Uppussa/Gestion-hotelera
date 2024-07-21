@@ -103,6 +103,22 @@
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                             <div class="input-group justify-content-end desplegable">
+                                <button id="btn-export-file" type="button" class="btn btn-default dropdown-toggle btn-export-file" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fal fa-file-export"></i> <span id="spn-export" class="d-none d-md-inline-block">Exportar</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end desplegable-menu">
+                                    <li>
+                                        <a class="dropdown-item export-file" href="#" data-desc="Excel" data-icon="bi bi-file-earmark-spreadsheet" data-file="xls">
+                                            <i class="bi bi-file-earmark-spreadsheet text-success"></i> Excel
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item export-file" href="#" data-desc="PDF" data-icon="bi bi-file-earmark-pdf" data-file="pdf">
+                                            <i class="bi bi-file-earmark-pdf-fill text-danger"></i> PDF
+                                        </a>
+                                    </li>
+                                </ul>
+                                
                                 <a href="{{route('addUser')}}" class="btn btn-primary" title="Agregar registro">
                                     <i class="bi bi-plus-circle"></i> Agregar
                                 </a>

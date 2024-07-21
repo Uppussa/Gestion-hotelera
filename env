@@ -3,7 +3,7 @@ APP_ENV=local
 APP_KEY=base64:IjueoWqsce5dSkUZJeCJrXBMHy+cpwZD5ESzmDBB/UI=
 APP_DEBUG=true
 APP_TIMEZONE='America/Mexico_City'
-APP_URL=http://localhost/lnxdash/
+APP_URL=http://localhost/dashtool/
 
 APP_LOCALE=es
 APP_FALLBACK_LOCALE=en

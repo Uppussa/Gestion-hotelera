@@ -40,7 +40,7 @@ Remombrar el proyecto clonado a `dashtool`
 composer install
 ```
 
-- Si se usa XAMPP crear la base de datos con nombre **lnxdash**
+- Si se usa XAMPP crear la base de datos con nombre **dashtool**
 - Cambiar el nombre del archivo env => .env
 - Configurar los datos de la base de datos
 
@@ -48,7 +48,7 @@ composer install
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=lnxdash
+DB_DATABASE=dashtool
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -58,7 +58,7 @@ DB_PASSWORD=
 Abrir el archivo .env y buscar la línea:
 
 ```
-APP_URL=http://localhost/lnxdash/
+APP_URL=http://localhost/dashtool/
 ```
 
 Modificar en caso de ser necesario.
@@ -72,11 +72,8 @@ Para ésto, entrar al directorio del proyecto, y ejecutar los siguientes comando
 php artisan migrate:fresh --seed
 ```
 
--  Iniciar el proyecto con artisan
+- Para iniciar el proyecto no requiere php artisan serve, solo basta con abrir el navegador y abrir la url: <http://localhost/dashtool>
 
-```
-php artisan serve
-```
 - Por defecto se crea el siguiente usuario y contraseña:
 
 ```
@@ -93,20 +90,20 @@ Para ésto, desde la terminal ejecutar:
 ** cambiar la ruta /opt/lampp/htdocs/ por la ruta donde esté instalado xampp, por si no está en la ruta por defecto.
 
 ```
-sudo chown -R daemon:tu-usuario /opt/lampp/htdocs/lnxdash
+sudo chown -R daemon:tu-usuario /opt/lampp/htdocs/dashtool
 ```
 
 Asignar permisos al directorio del proyecto.
 
 ```
-sudo chmod 775 -R /opt/lampp/htdocs/lnxdash
+sudo chmod 775 -R /opt/lampp/htdocs/dashtool
 ```
 
 
 ## Pruebas
 Para las pruebas correspondientes abrir el navegador con la ruta que se configure:
 
-<http://localhost/lnxdash>
+<http://localhost/dashtool>
 
 * El correo por defecto para usuario root es andy@dev.com y contraseña es holamundo
 
