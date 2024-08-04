@@ -34,13 +34,13 @@ class PostController extends Controller
         $this->validationRules = [
             'title' => 'required|string|max:250',
             'status' => 'required',
-            'content' => 'nullable|string|max:500',
+            'content' => 'nullable|string',
             'image' => 'nullable|string|max:500',
         ];
         $this->validationUpRules = [
             'title' => 'required|string|max:250',
             'status' => 'required|string|max:250',
-            'content' => 'nullable|string|max:500',
+            'content' => 'nullable|string',
         ];
         $this->attributeNames = [
             'title' => 'título',

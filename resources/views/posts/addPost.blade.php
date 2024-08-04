@@ -50,17 +50,10 @@
 	<script src="{{asset('public/assets/custom/ajx/ajxpost.js')}}"></script>
 	<script>
 		$(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
             let editor;
             ClassicEditor.create(document.querySelector('.cnt-post'), {
                 ckfinder: {
-                    uploadUrl: base_url+'/upload',
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    uploadUrl: base_url+'/upload?_token='+document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
                 height: '300px',
                 toolbar: {

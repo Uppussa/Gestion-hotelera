@@ -93,7 +93,7 @@
         let editor;
         ClassicEditor.create(document.querySelector('.cnt-post'), {
             ckfinder: {
-                uploadUrl: base_url+'/upload',
+                uploadUrl: base_url+'/upload?_token='+document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             height: '300px',
             toolbar: {
