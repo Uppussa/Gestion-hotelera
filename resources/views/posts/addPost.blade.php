@@ -37,7 +37,7 @@
             <div class="row justify-content-end">
                 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-2 mb-2">
                     <button type="submit" class="btn btn-success w-100" id="btn-add-reg">
-                        <i class="bi bi-check-circle"></i> Actualizar
+                        <i class="bi bi-check-circle"></i> Agregar
                     </button>
                 </div>
             </div>

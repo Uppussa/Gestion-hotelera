@@ -399,9 +399,10 @@ $(document).on("submit", ".form-add-reg", function (e) {
 			$("#btn-add-reg").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Agregando');
 		},
 		success: function(datos) {
-			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Continuar');
+			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Agregar');
 			$('#btn-add-reg').attr("disabled", false);
 			if (datos.tipo == "success") {
+				$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Continuar');
 				$('#btn-add-reg').attr("disabled", true);
 				setTimeout(function () {
 					$(window).attr('location', datos.url);
@@ -416,7 +417,7 @@ $(document).on("submit", ".form-add-reg", function (e) {
             }
 		},
 		error: function(data) {
-			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Continuar');
+			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Agregar');
 			$("#btn-add-reg").attr("disabled", false);
 			notifyMsg('Error interno, intenta más tarde.', '#', 'danger', '');
 		}
