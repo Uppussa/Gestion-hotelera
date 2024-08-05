@@ -466,12 +466,12 @@ $(document).on("click", ".export-file", function () {
 				var sampleArr = base64ToArrayBuffer(datos.file);
 				saveByteArray(datos.name, sampleArr, file);
 			}
-			notify_msg(datos.icon, " ", datos.msg, "#", datos.tipo);
+			notifyMsg(datos.msg, "#", datos.tipo, '');
 		},
 		error: function (e) {
 			$(".btn-export-file").html('<i class="bi bi-download"></i> <span id="spn-export" class="d-none d-md-inline-block">Exportar</span>');
 			$(".btn-export-file").attr("disabled", false);
-			notify_msg("bi bi-x-circle", " ", e.statusText, "#", "danger");
+			notifyMsg(e.statusText, "#", "danger", '');
 		}
 	});
 });

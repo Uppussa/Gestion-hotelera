@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Response;
 use Illuminate\Support\Str;
+use \Mpdf\Mpdf;
 
 class UserController extends Controller
 {
@@ -442,7 +443,7 @@ class UserController extends Controller
                     $pdf->setFooter('{PAGENO}');
                     $html = view('users/usersExport', $data);
 
-                    $stylesheet = file_get_contents(asset('public/vendor/bootstrap/css/pdf.bootstrap.css'));
+                    $stylesheet = file_get_contents(asset('public/assets/vendor/bootstrap/css/pdf.bootstrap.css'));
                     $pdf->WriteHTML($stylesheet, 1);
                     $pdf->WriteHTML($html, 2);
 
