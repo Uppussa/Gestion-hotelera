@@ -360,7 +360,7 @@ class UserController extends Controller
                                         </td>
                                         <td class="">    
                                             <a href="' . route('editUser', $reg) . '">
-                                                <img class="rounded-circle" src="'.($reg->avatar!='none.png'? $reg->avatar : 'public/assets/custom/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
+                                                <img class="rounded-circle" src="'.($reg->avatar!='none.png' && file_exists($reg->avatar)? $reg->avatar : 'public/assets/custom/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
                                             </a>
                                             <a href="' . route('editUser', $reg) . '" class="text-gray-800 text-hover-primary mb-1">
                                                 ' . $reg->name . '
@@ -459,12 +459,12 @@ class UserController extends Controller
                 if ($data['file'] == "xls") {
                     $setData        = "";
                     $fecaRegPti     = "";
-                    $columnHeader   = "ID" . "\t" . "Nombre" . "\t" . "Email" . "\t" . 'Estatus' . "\t" . "Registro" . "\n";
+                    $columnHeader   = "ID" . "\t" . "Nombre" . "\t" . "Email" . "\t" . 'Estatus' . "\t". 'Tipo' . "\t" . "Registro" . "\n";
                     $setData        .= $columnHeader;
                     $content        = "";
                     $id = 1;
                     foreach ($regs as $reg) {
-                        $content .= $id . "\t" . $reg->name . "\t" . $reg->email . "\t" . activeReg($reg->status) . "\t" . fecha($reg->created_at). "\n";
+                        $content .= $id . "\t" . $reg->name . "\t" . $reg->email . "\t" . activeReg($reg->status) . "\t". tipoUser($reg->level->level). "\t" . fecha($reg->created_at). "\n";
                         $id++;
                     }
                     $setData .= $content;

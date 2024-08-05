@@ -265,6 +265,27 @@ function estadoReg($edo = 1)
     return $estado;
 }
 
+function tipoUser($edo = 1)
+{
+    $estado = '';
+    switch ($edo) {
+        case 1:
+            $estado = 'Basic';
+            break;
+        case 2:
+            $estado = 'Admin';
+            break;
+        case 3:
+            $estado = 'Root';
+            break;
+        default:
+            $estado = 'Basic';
+            break;
+    }
+
+    return $estado;
+}
+
 function activeReg($edo = 1)
 {
     $estado = '';
