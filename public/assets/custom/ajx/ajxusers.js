@@ -415,7 +415,66 @@ $(document).on("submit", ".form-add-reg", function (e) {
 	e.preventDefault();
 });
 
+function base64ToArrayBuffer(base64) {
+	var binaryString = window.atob(base64);
+	var binaryLen = binaryString.length;
+	var bytes = new Uint8Array(binaryLen);
+	for (var i = 0; i < binaryLen; i++) {
+		var ascii = binaryString.charCodeAt(i);
+		bytes[i] = ascii;
+	}
+	return bytes;
+}
 
+function saveByteArray(reportName, byte, file) {
+	var blob = new Blob([byte]);
+	var link = document.createElement('a');
+	link.href = window.URL.createObjectURL(blob);
+	var fileName = reportName + "." + file;
+	link.download = fileName;
+	link.click();
+}
+
+$(document).on("click", ".export-file", function () {
+	var file = $(this).data("file");
+	$.ajax({
+		type: "POST",
+		dataType: "JSON",
+		method: "POST",
+		url: base_url + "/expUsrFile",
+		data: {
+			file: file,
+			search: search,
+			filter: filter,
+			limite: limite,
+			url: url,
+			order: order,
+			order_by: order_by,
+			act_fc: ($('#chk-act-fc').is(':checked') ? 1 : 0),
+			dt_ini: $('#dt-ini').val(),
+			dt_fin: $('#dt-fin').val(),
+			user: user,
+		},
+		beforeSend: function (objeto) {
+			$(".btn-export-file").attr("disabled", true);
+			$(".btn-export-file").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Generando');
+		},
+		success: function (datos) {
+			$(".btn-export-file").html('<i class="bi bi-download"></i> <span id="spn-export" class="d-none d-md-inline-block">Exportar</span>');
+			$(".btn-export-file").attr("disabled", false);
+			if (datos.tipo == 'success') {
+				var sampleArr = base64ToArrayBuffer(datos.file);
+				saveByteArray(datos.name, sampleArr, file);
+			}
+			notify_msg(datos.icon, " ", datos.msg, "#", datos.tipo);
+		},
+		error: function (e) {
+			$(".btn-export-file").html('<i class="bi bi-download"></i> <span id="spn-export" class="d-none d-md-inline-block">Exportar</span>');
+			$(".btn-export-file").attr("disabled", false);
+			notify_msg("bi bi-x-circle", " ", e.statusText, "#", "danger");
+		}
+	});
+});
 
 
 

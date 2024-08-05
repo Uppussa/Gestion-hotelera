@@ -322,6 +322,8 @@ class UserController extends Controller
         $total = $this->search($data, 1);
         $results = $this->search($data, 0);
         
+        $allResults = $this->search($data, 2);
+        setSession('regUsersExp', $allResults);
         
         $total_pages = ceil($total / $data['per_page']);
         $response['total'] = $total;
@@ -428,6 +430,70 @@ class UserController extends Controller
         return response()->json($msg);
     }
 
+    public function expUsrFile(Request $request)
+    {
+        $data['file'] = $request->file;
+        if ($data['file'] == "xls" || $data['file'] == "pdf") {
+            $regs = getSession('regUsersExp');
+            if (count($regs) > 0) {
+                if ($data['file'] == "pdf") {
+                    $data['title'] = "Exportar usuarios a PDF";
+                    $pdf = new Mpdf(array('', 'LETTER', 1, '', 5, 5, 5, 5, 2, 2, 'P'));
+                    $pdf->setFooter('{PAGENO}');
+                    $html = view('users/usersExport', $data);
+
+                    $stylesheet = file_get_contents(asset('public/vendor/bootstrap/css/pdf.bootstrap.css'));
+                    $pdf->WriteHTML($stylesheet, 1);
+                    $pdf->WriteHTML($html, 2);
+
+                    $file = base64_encode($pdf->Output('RPT-USERS-' . fecha(today(), 'd-m-Y') . '.pdf', 'S'));
+                    $msg = array(
+                        "tipo" => 'success',
+                        "icon"     => 'bi bi-check-circle',
+                        "file"     => $file,
+                        "name"     => 'RPT-USERS-' . fecha(today(), 'd-m-Y'),
+                        "msg"     => 'Reporte generado correctamente. Iniciando descarga.'
+                    );
+                }
+
+                if ($data['file'] == "xls") {
+                    $setData        = "";
+                    $fecaRegPti     = "";
+                    $columnHeader   = "ID" . "\t" . "Nombre" . "\t" . "Email" . "\t" . 'Estatus' . "\t" . "Registro" . "\n";
+                    $setData        .= $columnHeader;
+                    $content        = "";
+                    $id = 1;
+                    foreach ($regs as $reg) {
+                        $content .= $id . "\t" . $reg->name . "\t" . $reg->email . "\t" . activeReg($reg->status) . "\t" . fecha($reg->created_at). "\n";
+                        $id++;
+                    }
+                    $setData .= $content;
+                    $file = base64_encode($setData);
+                    $msg = array(
+                        "tipo" => 'success',
+                        "icon"     => 'bi bi-check-circle',
+                        "file"     => $file,
+                        "name"     => 'RPT-USERS-' . fecha(today(), 'd-m-Y'),
+                        "msg"     => 'Registros exportados correctamente. Iniciando descarga.'
+                    );
+                }
+            } else {
+                $msg = array(
+                    "tipo" => 'danger',
+                    "icon" => 'bi bi-x-circle',
+                    "msg" => 'No hay registros para exportar.'
+                );
+            }
+        } else {
+            $msg = array(
+                "tipo" => 'danger',
+                "icon" => 'bi bi-x-circle',
+                "msg" => 'Seleccione un tipo de archivo válido.'
+            );
+        }
+        return response()->json($msg);
+    }
+
     private function search($data, $mode)
     {
         $query = $this->model;
@@ -461,7 +527,9 @@ class UserController extends Controller
             $data['offset'] = ($data['page'] - 1) * $data['per_page'];
             $query = $query->offset($data['offset'])->limit($data['per_page']);
             $query = $query->get();
-        } else {
+        } elseif ($mode == 2) {
+            $query = $query->get();
+        }  else {
             $query = $query->count();
         }
 

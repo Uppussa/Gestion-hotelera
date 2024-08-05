@@ -35,6 +35,8 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::match(['get', 'post'], 'loadPermitsUser', 'UserController@loadPermitsUser')->name('loadPermitsUser');
     Route::post('storeUser', 'UserController@storeUser')->name('storeUser');
 
+    Route::post('expUsrFile', 'UserController@expUsrFile')->name('expUsrFile');
+
     //account
     Route::get('profile', 'AccountController@profile')->name('profile');
     Route::get('logs', 'AccountController@logs')->name('logs');

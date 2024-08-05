@@ -270,16 +270,16 @@ function activeReg($edo = 1)
     $estado = '';
     switch ($edo) {
         case 1:
-            $estado = '<span class="fs-9 align-middle badge bg-success">Activo</span>';
+            $estado = 'Activo';
             break;
         case 2:
-            $estado = '<span class="fs-9 align-middle badge bg-danger">Inactivo</span>';
+            $estado = 'Inactivo';
             break;
         case 3:
-            $estado = '<span class="fs-9 align-middle badge bg-warning">Baneado</span>';
+            $estado = 'Baneado';
             break;
         default:
-            $estado = '<span class="fs-9 align-middle badge bg-secondary">Eliminado</span>';
+            $estado = 'Eliminado';
             break;
     }
 
