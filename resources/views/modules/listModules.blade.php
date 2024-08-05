@@ -58,17 +58,17 @@
                         <ul class="dropdown-menu select-dropdown dropdown-edo">
                             <li>
                                 <a class="dropdown-item" href="#" data-desc="Todos" data-icon="bi bi-list-task" data-edo="0" data-btn="btn-filter">
-                                    <i class="align-middle bi bi-list-task"></i> Todos
+                                    <i class="bi bi-list-task"></i> Todos
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#" data-desc="Activos" data-icon="bi bi-check-circle" data-edo="1" data-btn="btn-filter">
-                                    <i class="align-middle bi bi-check-circle"></i> Activos
+                                    <i class="bi bi-check-circle"></i> Activos
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#" data-desc="Inactivos" data-icon="bi bi-x-circle" data-edo="2" data-btn="btn-filter">
-                                    <i class="align-middle bi bi-x-circle"></i> Inactivos
+                                    <i class="bi bi-x-circle"></i> Inactivos
                                 </a>
                             </li>
                         </ul>

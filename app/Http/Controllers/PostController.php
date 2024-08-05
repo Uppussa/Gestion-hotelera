@@ -292,13 +292,13 @@ class PostController extends Controller
                                         <td class="text-center">';
                 switch ($reg->status) {
                     case 1:
-                        $response['data'] .= '<span class="fs-9 badge text-bg-success">Activo</span>';
+                        $response['data'] .= '<span class="fs-9 badge text-bg-success"><i class="bi bi-check-circle"></i> Activo</span>';
                         break;
                     case 2:
-                        $response['data'] .= '<span class="fs-9 badge text-bg-danger">Publicado</span>';
+                        $response['data'] .= '<span class="fs-9 badge text-bg-danger"><i class="bi bi-globe"></i> Publicado</span>';
                         break;
                     default:
-                        $response['data'] .= '<span class="fs-9 badge text-bg-dark">Eliminado</span>';
+                        $response['data'] .= '<span class="fs-9 badge text-bg-dark"><i class="bi bi-trash"></i> Eliminado</span>';
                         break;
                 }
 
@@ -417,13 +417,13 @@ class PostController extends Controller
                                     <td class="text-center">';
             switch ($reg->status) {
                 case 1:
-                    $response['data'] .= '<span class="fs-9 badge text-bg-success">Activo</span>';
+                    $response['data'] .= '<span class="fs-9 badge text-bg-success"><i class="bi bi-check-circle"></i> Activo</span>';
                     break;
                 case 2:
-                    $response['data'] .= '<span class="fs-9 badge text-bg-danger">Publicado</span>';
+                    $response['data'] .= '<span class="fs-9 badge text-bg-danger"><i class="bi bi-globe"></i> Publicado</span>';
                     break;
                 default:
-                    $response['data'] .= '<span class="fs-9 badge text-bg-dark">Eliminado</span>';
+                    $response['data'] .= '<span class="fs-9 badge text-bg-dark"><i class="bi bi-trash"></i> Eliminado</span>';
                     break;
             }
 

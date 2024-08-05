@@ -108,7 +108,7 @@ class ModuleController extends Controller
                                         </td>
                                         <td class="">
                                             <i class=" '.$reg->icon.'"></i>'.' '.$reg->desc.'
-                                            <span class="badge float-end bg-'.($reg->status == 1 ? 'success' : 'danger').'">'.($reg->status == 1 ? 'Activo' : 'Inactivo').'</span>
+                                            <span class="badge float-end bg-'.($reg->status == 1 ? 'success' : 'danger').'">'.($reg->status == 1 ? '<i class="bi bi-check-circle"></i> Activo' : '<i class="bi bi-x-circle"></i> Inactivo').'</span>
                                         </td>';
                 $response['data'] .= '<td class="text-center">'.$reg->url_module.'</td>';
                 $response['data'] .= '<td class="text-center">'.$reg->show_on.'</td>';

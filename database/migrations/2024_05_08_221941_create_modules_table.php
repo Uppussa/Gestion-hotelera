@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('color', 100)->default('info');
             $table->string('url_sub_module', 100)->nullable()->comment('url by access to module');
             $table->string('show_on', 100)->nullable()->comment('where show module');
+            $table->string('query', 900)->nullable()->comment('sql for total rows');
             $table->foreignId('back_module_id')->nullable()->comment('id module back');
             $table->foreignId('module_id')->nullable()->comment('id parent module depend');
         });

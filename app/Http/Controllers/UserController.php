@@ -368,16 +368,16 @@ class UserController extends Controller
                                         <td class="text-center">';
                 switch ($reg->status) {
                     case 1:
-                        $response['data'] .= '<span class="fs-9 badge text-bg-success">Activo</span>';
+                        $response['data'] .= '<span class="fs-9 badge text-bg-success"><i class="fal fa-user-check"></i> Activo</span>';
                         break;
                     case 2:
-                        $response['data'] .= '<span class="fs-9 badge text-bg-danger">Bloqueado</span>';
+                        $response['data'] .= '<span class="fs-9 badge text-bg-danger"><i class="fal fa-user-lock"></i> Bloqueado</span>';
                         break;
                     case 3:
-                        $response['data'] .= '<span class="fs-9 badge text-bg-warning">Baneado</span>';
+                        $response['data'] .= '<span class="fs-9 badge text-bg-warning"><i class="fal fa-user-minus"></i> Baneado</span>';
                         break;
                     default:
-                        $response['data'] .= '<span class="fs-9 badge text-bg-secondary">Eliminado</span>';
+                        $response['data'] .= '<span class="fs-9 badge text-bg-secondary"><i class="fas fa-user-check"></i> Eliminado</span>';
                         break;
                 }
 

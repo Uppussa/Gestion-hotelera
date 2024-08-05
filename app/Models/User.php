@@ -89,4 +89,16 @@ class User extends Authenticatable
                 $q->where('modules.status', 1);
             });
     }
+
+    public function permisosModulo($modulo)
+    {
+        return $this->hasMany(Permit::class, 'user_id', 'id')
+            ->where('status', 1)
+            ->where('module_id', $modulo)
+            ->whereHas('module', function (Builder $q) {
+                $q->where('modules.status', 1);
+                $q->where('type', 'module');
+                $q->where('show_on', 'sidebar');
+            })->get();
+    }
 }

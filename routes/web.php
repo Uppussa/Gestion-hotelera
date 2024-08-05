@@ -8,16 +8,9 @@ Route::namespace('App\Http\Controllers')->group(function () {
     Route::get('/index', 'LoginController@index')->name('index');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
-    /*Route::post('ajxlogin', 'LoginController@ajxlogin')->name('ajxlogin');
-    Route::post('verifyEmail', 'LoginController@verifyEmail')->name('verifyEmail');
-    Route::match(['get', 'post'], 'reset', 'LoginController@reset')->name('reset');
-    Route::post('uppassword', 'LoginController@uppassword')->name('uppassword');
-    Route::get('singup', 'SingUpController@index')->name('singup');
-    Route::post('ajxregister', 'SingUpController@store')->name('ajxregister');*/
 });
 
 Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function () {
-    
     //modules
     Route::get('listModules', 'ModuleController@listModules')->name('listModules');
     Route::post('loadModules', 'ModuleController@loadModules')->name('loadModules');
