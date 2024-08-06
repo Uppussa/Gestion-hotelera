@@ -234,12 +234,14 @@ function getModules()
 function countRegister($data)
 {
     $total = 0;
-    if (str_contains($data['query'], '?')) {
-        $registro = DB::select($data['query'], [auth()->user()->id]);
-        $total = $registro[0]->total;
-    } else {
-        $registro = DB::select($data['query']);
-        $total = $registro[0]->total;
+    if ($data['query']!='' && $data['query']!=null) {
+        if (str_contains($data['query'], '?')) {
+            $registro = DB::select($data['query'], [auth()->user()->id]);
+            $total = $registro[0]->total;
+        } else {
+            $registro = DB::select($data['query']);
+            $total = $registro[0]->total;
+        }
     }
     return $total;
 }

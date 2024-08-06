@@ -27,6 +27,7 @@ class ModuleImport implements ToModel, WithHeadingRow
             'show_on' => $row['show_on'],
             'back_module_id' => $row['back_module_id'],
             'module_id' => $row['module_id'],
+            'query' => $row['query'],
         ]);
     }
 }
