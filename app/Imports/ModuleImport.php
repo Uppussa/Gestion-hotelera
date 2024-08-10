@@ -25,6 +25,7 @@ class ModuleImport implements ToModel, WithHeadingRow
             'color' => $row['color'],
             'url_sub_module' => $row['url_sub_module'],
             'show_on' => $row['show_on'],
+            'system' => $row['system'],
             'back_module_id' => $row['back_module_id'],
             'module_id' => $row['module_id'],
             'query' => $row['query'],

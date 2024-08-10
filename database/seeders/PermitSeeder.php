@@ -25,5 +25,96 @@ class PermitSeeder extends Seeder
                 'user_id' => 1,
             ]);
         }
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'profile',
+            'module_id' => 9,
+            'sub_module_id' => 10,
+            'user_id' => 2,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'listPost',
+            'module_id' => 15,
+            'sub_module_id' => 16,
+            'user_id' => 2,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'editPost',
+            'module_id' => 15,
+            'sub_module_id' => 17,
+            'user_id' => 2,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'addPost',
+            'module_id' => 15,
+            'sub_module_id' => 18,
+            'user_id' => 2,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'widgetuser',
+            'module_id' => 15,
+            'sub_module_id' => 19,
+            'user_id' => 2,
+        ]);
+
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'profile',
+            'module_id' => '9',
+            'sub_module_id' => 10,
+            'user_id' => 3,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'listPost',
+            'module_id' => 15,
+            'sub_module_id' => 16,
+            'user_id' => 3,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'editPost',
+            'module_id' => 15,
+            'sub_module_id' => 17,
+            'user_id' => 3,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'addPost',
+            'module_id' => 15,
+            'sub_module_id' => 18,
+            'user_id' => 3,
+        ]);
+
+        Permit::create([
+            'status' => 1,
+            'level' => 1,
+            'url_module'=> 'widgetuser',
+            'module_id' => 15,
+            'sub_module_id' => 19,
+            'user_id' => 3,
+        ]);
     }
 }

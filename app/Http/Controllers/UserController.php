@@ -392,9 +392,9 @@ class UserController extends Controller
                 
                 $response['data'] .= '<td class="text-center">';
                 if ($reg->user_id == auth()->user()->id) {
-                    $response['data'] .= '<a href="' . route('editUser', $reg) . '#permisos">' . count($reg->permisos) . (count($reg->permisos) == 1 ? ' permiso' : ' permisos') . '</a>';
-                } else {
                     $response['data'] .= '' . count($reg->permisos) . (count($reg->permisos) == 1 ? ' permiso' : ' permisos');
+                } else {
+                    $response['data'] .= '<a href="' . route('editUser', $reg) . '#permisos">' . count($reg->permisos) . (count($reg->permisos) == 1 ? ' permiso' : ' permisos') . '</a>';
                 }
                 $response['data'] .= '</td><td class="text-center">';
                 

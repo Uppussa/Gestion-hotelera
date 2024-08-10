@@ -15,7 +15,7 @@ class Module extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id', 'status', 'type', 'nom', 'desc', 'icon', 'url_module', 'color', 'url_sub_module', 'back_module_id', 'show_on', 'module_id'
+        'id', 'status', 'type', 'nom', 'desc', 'icon', 'url_module', 'color', 'url_sub_module', 'back_module_id', 'system', 'show_on', 'module_id'
     ];
 
     public function parentModule()
