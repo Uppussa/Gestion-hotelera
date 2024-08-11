@@ -76,6 +76,8 @@ function load(page) {
             checkedState = false;
             count = 0;
             list = [];
+			toolbarBase.classList.remove('d-none');
+			toolbarSelected.classList.add('d-none');
 		},
 		error: function(data) {
 			$(".btn-search").html('<i class="bi bi-search"></i>');
