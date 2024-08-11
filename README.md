@@ -4,7 +4,7 @@
 
 ## Descripción
 
-Un dashboar utilizando Laravel 11 con algunas características esenciales desarrolladas a mi manera. Éste proyecto lo utilicé como parte de la facultad, por lo que sólo lo actualicé a la versión más reciente de Laravel, para compartirlo con ustedes.
+Un dashboard utilizando Laravel 11 con algunas características esenciales desarrolladas a mi manera. Éste proyecto lo utilicé como parte de la facultad, por lo que sólo lo actualicé a la versión más reciente de Laravel, para compartirlo con ustedes.
 
 ## Funcionalidades
 
@@ -18,6 +18,9 @@ Un dashboar utilizando Laravel 11 con algunas características esenciales desarr
 - Registro
 - Recuperación de contraseña
 - Uso de imágenes
+- Gráficas
+- Exportado de Excel
+- Exportado de PDF
 
 ## Requerimientos
 
@@ -111,9 +114,9 @@ Para las pruebas correspondientes abrir el navegador con la ruta que se configur
 
 ![alt tag](1.png)
 
-![alt tag](2.png)
+![alt tag](b.png)
 
-![alt tag](3.png)
+![alt tag](c.png)
 
 ## MIT License
 

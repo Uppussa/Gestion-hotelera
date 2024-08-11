@@ -50,7 +50,7 @@
                 @foreach (auth()->user()->menuNavbar as $permiso)
                     <li>
                         <a class="dropdown-item" href="{{route($permiso->module->url_module)}}">
-                            <i class="fs-5 {{$permiso->module->icon}}"></i> {{$permiso->module->desc}}
+                            <i class="fs-5 mt-2 {{$permiso->module->icon}}"></i> {{$permiso->module->desc}}
                         </a>
                     </li>
                 @endforeach
