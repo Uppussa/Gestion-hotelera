@@ -39,7 +39,6 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
 
     //account
     Route::get('profile', 'AccountController@profile')->name('profile');
-    Route::get('logs', 'AccountController@logs')->name('logs');
     Route::match(['get', 'post'], 'upPassword', 'AccountController@upPassword')->name('upPassword');
     Route::match(['get', 'post'], 'myPermits', 'AccountController@myPermits')->name('myPermits');
     Route::match(['get', 'post'], 'loadPermits', 'AccountController@loadPermits')->name('loadPermits');
@@ -65,4 +64,6 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::post('upPost', 'PostController@upPost')->name('upPost');
 
     Route::match(['get', 'post'], 'loadGraphLogs', 'LogController@loadGraphLogs')->name('loadGraphLogs');
+    Route::get('logs', 'LogController@listLogs')->name('logs');
+    Route::match(['get', 'post'], 'loadLogs', 'LogController@loadLogs')->name('loadLogs');
 });

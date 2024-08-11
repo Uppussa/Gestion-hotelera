@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Str;
+use App\Models\Permit;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
+use Response;
 
 class LogController extends Controller
 {
@@ -35,6 +41,26 @@ class LogController extends Controller
             'required' => 'El campo :attribute es obligatorio.',
         ];
         $this->model = $model;
+    }
+
+    public function listLogs(Request $request)
+    {
+        $data['title'] = 'Módulo';
+        $data['tab'] = 'main';
+        $data['url'] = Route::current()->getName();
+        if ($data['url'] !== '') {
+            $data['permiso'] = auth()->user()->isPermitUrl($data);
+            if ($data['permiso']) {
+                $data['title'] = $data['permiso']->module->desc;
+                $data['tab'] = $data['permiso']->parentModule->nom;
+
+                return view('logs/'.$data['url'], $data);
+            } else {
+                redireccionar(route('dashboard'), 'Módulo no autorizado.', 'danger');
+            }
+        } else {
+            redireccionar(route('dashboard'), 'Permiso no encontrado.', 'danger');
+        }
     }
 
     public function loadGraphLogs(Request $request)
@@ -246,5 +272,126 @@ class LogController extends Controller
                 </script>';
         }
         return response()->json($response);
+    }
+
+    public function loadLogs(Request $request)
+    {
+        $data['page'] = ($request->page) ? $request->page : 1;
+        $data['order'] = ($request->order) ? $request->order : 'desc';
+        $data['order_by'] = ($request->order_by) ? $request->order_by : 'id';
+        $data['search'] = ($request->search) ? trim($request->search) : '';
+        $data['per_page'] = ($request->limite) ? $request->limite : 10;
+        
+        
+        $data['act_fc'] = $request->act_fc;
+        $data['dt_ini'] = ($request->dt_ini) ? $request->dt_ini : getFirstLastDate('first', 'month');
+        $data['dt_fin'] = ($request->dt_fin) ? $request->dt_fin : getFirstLastDate('last', 'month');
+        $data['adyacentes'] = 2;
+
+        $total = $this->search($data, 1);
+        $results = $this->search($data, 0);
+        
+        
+        $total_pages = ceil($total / $data['per_page']);
+        $response['total'] = $total;
+
+        $response['data'] = '';
+        if ($total > 0) {
+            $response['data'] .= '<div class="table-responsive"><table id="table-logs" class="table table-row-gray-200  kt_table_users">
+                <thead>
+                    <tr class="row-link">
+                        <th class="text-left w-5">
+                            <div class="form-check form-check-sm form-check-custom me-3">
+                                <input class="form-check-input chk-delete-all" type="checkbox" data-kt-check="true" data-kt-check-target="#table-users .form-check-input" value="1" />
+                            </div>
+                        </th>
+                        <th data-field="title"  class="th-link"><i class="bi bi-sort-down"></i> Acción</th>
+                        <th data-field="status" class="th-link w-7 text-center"><i class="bi bi-sort-down"></i> Tipo</th>';
+            
+            $response['data'] .= '<th data-field="user_id" class="th-link text-center"><i class="bi bi-sort-down"></i> IP</th>';
+
+            $response['data'] .= '
+                        <th class="w-10 text-center"><i class="bi bi-check-circle"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>';
+            foreach ($results as $reg) {
+                $response['data'] .= '<tr>
+                                        <td class="text-center w-3">
+                                            <div class="form-check form-check-sm form-check-custom">
+                                                <input class="form-check-input chk-select-delete" type="checkbox" data-id="' . $reg->id . '" value="1" id="chk_' . $reg->id . '" name="chk_' . $reg->id . '">
+                                                <label for="chk_' . $reg->id . '" class="form-check-label"> ' . $reg->id . '</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            ' . $reg->action_log . '
+                                        </td>
+                                        <td class="text-center">';
+                switch ($reg->tipo_log) {
+                    case 'success':
+                        $response['data'] .= '<span class="fs-9 badge text-bg-success"><i class="bi bi-check-circle"></i> Correcto</span>';
+                        break;
+                    case 'danger':
+                        $response['data'] .= '<span class="fs-9 badge text-bg-danger"><i class="bi bi-x-circle"></i> Error</span>';
+                        break;
+                    case 'info':
+                        $response['data'] .= '<span class="fs-9 badge text-bg-info"><i class="bi bi-info-circle"></i> Información</span>';
+                        break;
+                    default:
+                        $response['data'] .= '<span class="fs-9 badge text-bg-dark"><i class="bi bi-trash"></i> Eliminado</span>';
+                        break;
+                }
+
+                $response['data'] .= '</td>';
+        
+                
+                $response['data'] .= '<td class="text-center">';
+                
+                $response['data'] .= '</td>
+                                        <td class="text-center">';
+                $response['data'] .= '<button class="btn btn-link mdl-del-reg" data-id="'.$reg->id.'" data-nom="'.$reg->action_log.'" data-bs-toggle="modal" data-bs-target="#del-regs"><i class="text-danger bi bi-trash"></i></button>';
+                $response['data'] .= '</td></tr>';
+            }
+            $response['data'] .= '</tbody></table></div>';
+            $response['data'] .= '<div class="border-top">'.paginate($data['page'], $total_pages, $data['adyacentes'], 'load').'</div>';
+        } else {
+            $response['data'] = '<div class="alert alert-dark text-center" role="alert"><i class="fas fa-search"></i> No hay registros para mostrar.</div>';
+        }
+
+        return response()->json($response);
+    }
+
+    private function search($data, $mode)
+    {
+        $query = $this->model;
+        if ($data['act_fc'] == 1) {
+            $query = $query->whereBetween('fc_log', [$data['dt_ini'], $data['dt_fin']]);
+        }
+
+        $words = splitWordSearch($data['search']);
+        if ($words) {
+            $query = $query->where(function (Builder $q) use ($words) {
+                foreach ($words as $word) {
+                    $q->whereAny([
+                        'action_log',
+                        'tipo_log',
+                        'ip_log',
+                        'table_log',
+                        'from_log',
+                        'user_id',
+                    ], 'LIKE', '%'.$word.'%');
+                }
+            });
+        }
+        $query = $query->orderBy('logs.'.$data['order_by'], $data['order']);
+        if ($mode == 0) {
+            $data['offset'] = ($data['page'] - 1) * $data['per_page'];
+            $query = $query->offset($data['offset'])->limit($data['per_page']);
+            $query = $query->get(['logs.id','action_log', 'ip_log', 'from_log', 'table_log', 'user_id', 'fc_log', 'tipo_log']);
+        } else {
+            $query = $query->count('logs.id');
+        }
+
+        return $query;
     }
 }
