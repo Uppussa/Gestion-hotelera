@@ -1,6 +1,8 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="{{route('home')}}">{{env('APP_NAME')}}</a>
+    <a class="navbar-brand ps-3" href="{{route('home')}}">
+        <img src="{{asset('public/assets/custom/images/logo.svg')}}" alt="" height="40"> {{env('APP_NAME')}}
+    </a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->

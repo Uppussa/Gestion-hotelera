@@ -1,22 +1,29 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <i class="bi bi-person-circle"></i> {{ __('Login') }}
-                </div>
+        <div class="col-md-5 text-center mb-3">
+            <img src="{{asset('public/assets/custom/images/logo.svg')}}"" alt="" height="100">
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow p-3">
+
+                <h5 class="card-title mb-3 mt-3 text-center">Inicio de Sesión</h5>
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="row mb-4 justify-content-center">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="has-float-label">
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder=" ">
                                         <label for="email">{{ __('Email Address') }}</label>
-                                        <i class="bi bi-person-circle form-control-icon"></i>
+                                        <i class="bi bi-at form-control-icon"></i>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -28,7 +35,7 @@
                         </div>
 
                         <div class="row mb-3 justify-content-center">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="has-float-label">
                                         <i class="bi bi-lock form-control-icon"></i>
@@ -46,7 +53,7 @@
                         </div>
 
                         <div class="row mb-3 justify-content-center">
-                            <div class="col-md-3">
+                            <div class="col-5">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label class="form-check-label" for="remember">
@@ -54,7 +61,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-7">
                                 <button type="submit" class="btn btn-primary float-end">
                                     {{ __('Login') }} <i class="bi bi-box-arrow-in-right"></i>
                                 </button>
@@ -62,7 +69,7 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-12 offset-md-4">
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}

@@ -871,3 +871,11 @@ input[type="time"]:before {
     color: rgba(0, 0, 0, 0.15);
     transition: transform 0.3s linear;
 }
+.invalid-feedback {
+    background: none !important;
+    color: #dc3545 !important;
+}
+
+.has-float-label .is-invalid {
+    border-color: #f1aeb5 !important;
+}
