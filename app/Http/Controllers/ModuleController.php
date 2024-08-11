@@ -81,10 +81,8 @@ class ModuleController extends Controller
             $response['data'] .= '<div class="table-responsive"><table id="table-users" class="table table-row-gray-200 align-middle kt_table_users">
                 <thead>
                     <tr class="row-link">
-                        <th class="text-left w-5">
-                            <div class="form-check form-check-sm form-check-custom me-3">
-                                <input class="form-check-input chk-delete-all" type="checkbox" data-kt-check="true" data-kt-check-target="#table-users .form-check-input" value="1" />
-                            </div>
+                        <th data-field="id"  class="th-link text-center w-3">
+                            ' . ($data['order_by'] == 'id' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="fa fa-sort"></i>') . ' # ID
                         </th>
                         <th data-field="nom"  class="th-link">' . ($data['order_by'] == 'nom' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="fa fa-sort"></i>') . ' Nombre</th>
                         <th data-field="desc" class="th-link">' . ($data['order_by'] == 'desc' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="fa fa-sort"></i>') . ' Descripción</th>';
@@ -96,12 +94,7 @@ class ModuleController extends Controller
                             <tbody>';
             foreach ($results as $reg) {
                 $response['data'] .= '<tr>
-                                        <td class="text-center w-3">
-                                            <div class="form-check form-check-sm form-check-custom">
-                                                <input class="form-check-input chk-select-delete" type="checkbox" data-id="'.$reg->id.'" value="1" id="chk_'.$reg->id.'" name="chk_'.$reg->id.'">
-                                                <label for="chk_'.$reg->id.'" class="form-check-label"> '.$reg->id.'</label>
-                                            </div>
-                                        </td>
+                                        <td class="text-center">'.$reg->id.'</td>
                                         <td class="">
                                             '.($reg->nom).'
                                             <span class="small float-end mt-1 badge rounded-pill '.($reg->type == 'module' ? 'bg-dark' : 'bg-primary').'">'.$reg->type.'</span>

@@ -260,10 +260,10 @@ class PostController extends Controller
                                 <input class="form-check-input chk-delete-all" type="checkbox" data-kt-check="true" data-kt-check-target="#table-users .form-check-input" value="1" />
                             </div>
                         </th>
-                        <th data-field="title"  class="th-link"><i class="bi bi-sort-down"></i> Título</th>
-                        <th data-field="status" class="th-link w-7 text-center"><i class="bi bi-sort-down"></i> Estado</th>';
+                        <th data-field="title"  class="th-link">' . ($data['order_by'] == 'title' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="bi bi-file-text"></i>') . ' Título</th>
+                        <th data-field="status" class="th-link w-7 text-center">' . ($data['order_by'] == 'status' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="bi bi-toggle-on"></i>') . ' Estado</th>';
             
-            $response['data'] .= '<th data-field="user_id" class="th-link text-center"><i class="bi bi-sort-down"></i> Autor</th>';
+            $response['data'] .= '<th data-field="user_id" class="th-link text-center">' . ($data['order_by'] == 'user_id' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="fal fa-user"></i>') . ' Autor</th>';
 
             
 

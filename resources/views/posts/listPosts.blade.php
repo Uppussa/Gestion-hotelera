@@ -109,6 +109,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
+                        <button type="button" class="btn btn-danger position-relative mdl-list-del" data-kt-user-table-select="delete_selected" data-bs-toggle="modal" data-bs-target="#del-regs">
+                            <i class="bi bi-trash"></i> Eliminar <span data-kt-user-table-select="selected_count" class="badge badge-circle badge-white ms-2">1</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

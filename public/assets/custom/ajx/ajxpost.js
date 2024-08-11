@@ -78,6 +78,8 @@ function load(page) {
 			totalPosts = res.total;
             count = 0;
             list = [];
+			toolbarBase.classList.remove('d-none');
+			toolbarSelected.classList.add('d-none');
 		},
 		error: function(data) {
 			$(".btn-search").html('<i class="bi bi-search"></i>');
@@ -97,7 +99,7 @@ $(document).on("click", ".table th.th-link", function() {
 });
 
 $(document).on("click", ".chk-select-delete", function() {
-    var table = document.getElementById('table-users');
+	var table = document.getElementById('table-posts');
     allCheckboxes = table.querySelectorAll('tbody [type="checkbox"]');
     count = 0;
     checkedState = false;
@@ -122,7 +124,7 @@ $(document).on("click", ".chk-select-delete", function() {
 });
 
 $(document).on("click", ".chk-delete-all", function() {
-    var table = document.getElementById('table-users');
+	var table = document.getElementById('table-posts');
     allCheckboxes = table.querySelectorAll('tbody [type="checkbox"]');
     count = 0;
     checkedState = false;
