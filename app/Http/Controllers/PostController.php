@@ -340,7 +340,6 @@ class PostController extends Controller
         } else {
             $query = $query->where('posts.status', '>', 0);
         }
-        $query = $query->where('posts.id', '!=', auth()->user()->id);
 
         if (auth()->user()->level_cat_id==1) {
             $query = $query->where('user_id', auth()->user()->id);
