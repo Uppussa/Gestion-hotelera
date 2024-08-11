@@ -339,10 +339,10 @@ class UserController extends Controller
                                 <input class="form-check-input chk-delete-all" type="checkbox" data-kt-check="true" data-kt-check-target="#table-users .form-check-input" value="1" />
                             </div>
                         </th>
-                        <th data-field="name"  class="th-link"><i class="bi bi-sort-down"></i> Nombre</th>
-                        <th data-field="status" class="th-link w-7 text-center"><i class="bi bi-sort-down"></i> Estado</th>';
+                        <th data-field="name"  class="th-link">' . ($data['order_by'] == 'name' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="fal fa-user"></i>') . ' Nombre</th>
+                        <th data-field="status" class="th-link w-7 text-center">' . ($data['order_by'] == 'status' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="bi bi-check2-circle"></i>') . ' Estado</th>';
             
-            $response['data'] .= '<th data-field="email" class="th-link"><i class="bi bi-sort-down"></i> Email</th>';
+            $response['data'] .= '<th data-field="email" class="th-link">' . ($data['order_by'] == 'email' ? ($data['order'] == 'desc' ? '<i class="fad fa-sort-down"></i>' : '<i class="fad fa-sort-up"></i>') : '<i class="fal fa-at"></i>') . ' Email</th>';
 
             
 
