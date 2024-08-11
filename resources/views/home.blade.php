@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container-fluid mt-4">
-    
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -51,16 +50,20 @@
             </div>
         @endforeach
     </div>
-
-    <div class="row mt-4 mb-4">
-        <div class="col-md-12">
-            <div id="container"></div>
-        </div>
+    
+    <!-- Sección a mejorar, para usar mejor parse de php en código desde bd -->
+    <div class="row mt-2 mb-3">
+        <?php
+        foreach (auth()->user()->graphs as $graph) {
+            eval('?>'.$graph->module->query.'<?');
+        }
+        ?>
     </div>
 </div>
 @endsection
 
 @section('script')
+    <script src="{{asset('public/assets/custom/ajx/ajxgraph.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(document).on("click", ".btnAlerta", function (e) {

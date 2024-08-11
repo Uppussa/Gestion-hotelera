@@ -32,6 +32,9 @@
 
 <script src="{{asset('public/assets/vendor/ckeditor5/build/ckeditor.js')}}" type="text/javascript"></script>
 
+<script src={{asset('public/assets/vendor/highcharts/highcharts.js')}}></script>
+<script src={{asset('public/assets/vendor/highcharts/modules/exporting.js')}}></script>
+
 @if (auth()->check())
     <meta name="api-token" content="{{auth()->user()->api_token}}">
 @endif

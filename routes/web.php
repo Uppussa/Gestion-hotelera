@@ -63,4 +63,6 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::post('loadImagePost', 'PostController@loadImagePost')->name('loadImagePost');
     Route::post('upImgPost', 'PostController@upImgPost')->name('upImgPost');
     Route::post('upPost', 'PostController@upPost')->name('upPost');
+
+    Route::match(['get', 'post'], 'loadGraphLogs', 'LogController@loadGraphLogs')->name('loadGraphLogs');
 });

@@ -246,6 +246,10 @@ function countRegister($data)
     return $total;
 }
 
+function dayWeek($day){
+	return date('Y-m-d', strtotime('this week '.$day));
+}
+
 function estadoReg($edo = 1)
 {
     $estado = '';
@@ -619,6 +623,70 @@ function todayMasD($mas = 0)
     $dia = date('Y-m-d', strtotime($hoy.' + '.$mas.' days'));
 
     return $dia;
+}
+
+function dateRange( $first, $last, $step = '+1 day', $format = 'Y-m-d'){
+	$dates 		= array();
+	$current 	= strtotime( $first );
+	$last 		= strtotime( $last );
+	while( $current <= $last ) {
+		if (date("D", $current)!='Sun') {
+			$dates[] = date( $format, $current );
+		}
+		$current = strtotime( $step, $current );
+	}
+	return $dates;
+}
+
+function getWeeksDate($first, $last, $step = '+1 day', $format = 'Y-m-d'){
+	$weeks 		= array();
+	$current 	= strtotime($first);
+	$last 		= strtotime($last);
+	while( $current <= $last ) {
+		$currentWeek = 0;
+		$fecha 	= date( "Y-m-d", $current);
+		$date 	= new DateTime($fecha);
+		$week 	= $date->format("Y-W");
+		if (!in_array($week, $weeks, true)) {
+			$weeks[] = $week;
+		}
+		$current = strtotime( $step, $current );
+	}
+	return $weeks;
+}
+
+function getMonthsDate($first, $last, $step = '+1 day', $format = 'Y-m-d'){
+	$weeks 		= array();
+	$current 	= strtotime($first);
+	$last 		= strtotime($last);
+	while( $current <= $last ) {
+		$currentWeek = 0;
+		$fecha 	= date( "Y-m-d", $current);
+		$date 	= new DateTime($fecha);
+		$week 	= $date->format("Y-m");
+		if (!in_array($week, $weeks, true)) {
+			$weeks[] = $week;
+		}
+		$current = strtotime( $step, $current );
+	}
+	return $weeks;
+}
+
+function getYearDate($first, $last, $step = '+1 month', $format = 'Y-m-d'){
+	$years 		= array();
+	$current 	= strtotime($first);
+	$last 		= strtotime($last);
+	while( $current <= $last ) {
+		$currentWeek = 0;
+		$fecha 	= date( "Y-m-d", $current);
+		$date 	= new DateTime($fecha);
+		$year 	= $date->format("Y");
+		if (!in_array($year, $years, true)) {
+			$years[] = $year;
+		}
+		$current = strtotime( $step, $current );
+	}
+	return $years;
 }
 
 function inputEmail($field, $label = false, $value = '', $icon = 'bi bi-at', $options = [])

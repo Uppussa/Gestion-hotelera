@@ -101,4 +101,16 @@ class User extends Authenticatable
                 $q->where('show_on', 'sidebar');
             })->get();
     }
+
+    public function graphs()
+    {
+        return $this->hasMany(Permit::class, 'user_id', 'id')
+            ->where('status', 1)
+            ->whereHas('module', function (Builder $q) {
+                $q->where('modules.status', 1);
+                $q->where('modules.type', 'graph');
+            })->with(['module' => function ($q) {
+                $q->orderBy('desc', 'asc');
+            }]);
+    }
 }
