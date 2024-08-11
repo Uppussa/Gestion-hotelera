@@ -112,7 +112,7 @@ Para las pruebas correspondientes abrir el navegador con la ruta que se configur
 
 ## Capturas
 
-![alt tag](1.png)
+![alt tag](a.png)
 
 ![alt tag](b.png)
 
