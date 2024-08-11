@@ -15,15 +15,14 @@
 					<input type="hidden" id="txt-list-dels" name="list" readonly="" value="0">
 					<div class="row align-center justify-content-center">
 						<div class="col-md-12 text-center">
-							<p id="p-msg-del" class="text-danger fw-bold">¿Cuál acción desea aplicar para el registro actual?</p>
+							<p id="p-msg-del">¿Eliminar el registro?</p>
 						</div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <span class="has-float-label">
-                                <select id="slt-edo" name="slt_edo" class="form-select form-control" required>
-                                    <option value="" selected="" disabled="disabled">-- Seleccionar --</option>
+                                <select id="slt-edo" name="slt_edo" class="form-select form-control">
                                     <option value="1" data-icon="bi bi-check-circle" data-clase="bg-success" data-txt="Retirar">Retirar</option>
                                     <option value="2" data-icon="fa fa-check-circle" data-clase="bg-success" data-txt="Publicar">Publicar</option>
-                                    <option value="0" data-icon="bi bi-trash" data-clase="bg-danger" data-txt="Eliminar">Eliminar</option>
+                                    <option value="0" data-icon="bi bi-trash" data-clase="bg-danger" data-txt="Eliminar" selected>Eliminar</option>
                                 </select>
                                 <label for="slt-edo">Acción</label>
                             </span>

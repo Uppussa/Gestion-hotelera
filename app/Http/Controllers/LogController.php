@@ -297,7 +297,7 @@ class LogController extends Controller
 
         $response['data'] = '';
         if ($total > 0) {
-            $response['data'] .= '<div class="table-responsive"><table id="table-logs" class="table table-row-gray-200  kt_table_users">
+            $response['data'] .= '<div class="table-responsive"><table id="table-logs" class="table table-row-gray-200 table-hover kt_table_users">
                 <thead>
                     <tr class="row-link">
                         <th class="text-left w-5">
@@ -305,10 +305,12 @@ class LogController extends Controller
                                 <input class="form-check-input chk-delete-all" type="checkbox" data-kt-check="true" data-kt-check-target="#table-users .form-check-input" value="1" />
                             </div>
                         </th>
-                        <th data-field="title"  class="th-link"><i class="bi bi-sort-down"></i> Acción</th>
-                        <th data-field="status" class="th-link w-7 text-center"><i class="bi bi-sort-down"></i> Tipo</th>';
+                        <th data-field="action_log"  class="th-link"><i class="bi bi-sort-down"></i> Acción</th>
+                        <th data-field="tipo_log" class="th-link w-7 text-center"><i class="bi bi-sort-down"></i> Tipo</th>';
             
-            $response['data'] .= '<th data-field="user_id" class="th-link text-center"><i class="bi bi-sort-down"></i> IP</th>';
+            $response['data'] .= '<th data-field="ip_log" class="th-link text-center"><i class="bi bi-sort-down"></i> IP</th>';
+            $response['data'] .= '<th data-field="from_log" class="th-link text-center"><i class="bi bi-sort-down"></i> From</th>';
+            $response['data'] .= '<th data-field="user_id" class="th-link text-center"><i class="bi bi-sort-down"></i> Usuario</th>';
 
             $response['data'] .= '
                         <th class="w-10 text-center"><i class="bi bi-check-circle"></i> Acciones</th>
@@ -325,8 +327,8 @@ class LogController extends Controller
                                         </td>
                                         <td>
                                             ' . $reg->action_log . '
-                                        </td>
-                                        <td class="text-center">';
+                                        </td>';
+                $response['data'] .= '<td class="text-center">';
                 switch ($reg->tipo_log) {
                     case 'success':
                         $response['data'] .= '<span class="fs-9 badge text-bg-success"><i class="bi bi-check-circle"></i> Correcto</span>';
@@ -344,10 +346,15 @@ class LogController extends Controller
 
                 $response['data'] .= '</td>';
         
+                $response['data'] .= '<td>' . $reg->ip_log . '</td>';
+
+                $response['data'] .= '<td>' . $reg->from_log . '</td>';
+
+                $response['data'] .= '<td>
+                                            ' . $reg->user_id . '
+                                        </td>';
                 
-                $response['data'] .= '<td class="text-center">';
-                
-                $response['data'] .= '</td>
+                $response['data'] .= '
                                         <td class="text-center">';
                 $response['data'] .= '<button class="btn btn-link mdl-del-reg" data-id="'.$reg->id.'" data-nom="'.$reg->action_log.'" data-bs-toggle="modal" data-bs-target="#del-regs"><i class="text-danger bi bi-trash"></i></button>';
                 $response['data'] .= '</td></tr>';
@@ -359,6 +366,27 @@ class LogController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function delLog(Request $request)
+    {
+        $list = explode(',', $request->list);
+        $edo = $request->slt_edo >= 0 ? $request->slt_edo : 1;
+        $update = 0;
+        foreach ($list as $id) {
+            if (Log::where('id', $id)->delete()) {
+                $update++;
+            }
+        }
+        $estados[0] = 'eliminado'.($update > 1 ? 's' : '');
+        $estados[1] = 'retirado'.($update > 1 ? 's' : '');
+        $estados[2] = 'publicado'.($update > 1 ? 's' : '');
+        $estados[3] = 'baneado'.($update > 1 ? 's' : '');
+        $msg = ['tipo' => 'success',
+            'icon' => 'bi bi-check-circle',
+            'msg' => $update.' registro'.($update > 1 ? 's' : '').' '.$estados[$edo], ];
+
+        return response()->json($msg);
     }
 
     private function search($data, $mode)

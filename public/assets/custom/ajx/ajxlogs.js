@@ -78,6 +78,8 @@ function load(page) {
 			totalPosts = res.total;
 			count = 0;
 			list = [];
+			toolbarBase.classList.remove('d-none');
+			toolbarSelected.classList.add('d-none');
 		},
 		error: function (data) {
 			$(".btn-search").html('<i class="bi bi-search"></i>');
@@ -97,7 +99,7 @@ $(document).on("click", ".table th.th-link", function () {
 });
 
 $(document).on("click", ".chk-select-delete", function () {
-	var table = document.getElementById('table-users');
+	var table = document.getElementById('table-logs');
 	allCheckboxes = table.querySelectorAll('tbody [type="checkbox"]');
 	count = 0;
 	checkedState = false;
@@ -122,7 +124,7 @@ $(document).on("click", ".chk-select-delete", function () {
 });
 
 $(document).on("click", ".chk-delete-all", function () {
-	var table = document.getElementById('table-users');
+	var table = document.getElementById('table-logs');
 	allCheckboxes = table.querySelectorAll('tbody [type="checkbox"]');
 	count = 0;
 	checkedState = false;
@@ -160,12 +162,12 @@ $(document).on("click", ".chk-delete-all", function () {
 
 $(document).on("click", ".mdl-list-del", function () {
 	$("#txt-list-dels").val(list);
-	$("#p-msg-del").text('Selecciona la acción para  ' + (count == 1 ? '' : 'los') + ' ' + count + ' ' + (count == 1 ? 'registro seleccionado' : 'registros seleccionados'));
+	$("#p-msg-del").html('¿Eliminar <span class="text-danger fw-bold">' + (count == 1 ? '' : ' ') + ' ' + count + ' ' + (count == 1 ? 'registro seleccionado' : 'registros seleccionados') + '?</span>');
 });
 
 $(document).on("click", ".mdl-del-reg", function () {
 	$("#txt-list-dels").val($(this).data("id"));
-	$("#p-msg-del").text('Registro seleccionado: ' + $(this).data("nom"));
+	$("#p-msg-del").html('¿Eliminar el registro <span class="text-danger fw-bold">' + $(this).data("nom") + '?</span>');
 });
 
 $("#form-up-edo").submit(function (event) {
@@ -173,7 +175,7 @@ $("#form-up-edo").submit(function (event) {
 	$.ajax({
 		type: "POST",
 		method: "POST",
-		url: base_url + "/delPost",
+		url: base_url + "/delLog",
 		data: parametros,
 		dataType: "JSON",
 		beforeSend: function (objeto) {
@@ -208,219 +210,4 @@ $("#form-up-edo").submit(function (event) {
 		}
 	});
 	event.preventDefault();
-});
-
-function loadImagePost() {
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-	$.ajax({
-		url: base_url + "/loadImagePost",
-		method: "POST",
-		dataType: "JSON",
-		type: "POST",
-		data: {
-			reg: reg,
-		},
-		beforeSend: function (objeto) {
-			$("#div-cnt-reg").html('<div class="alert alert-dark text-center" role="alert">' +
-				'<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Cargando</div>');
-		},
-		success: function (data) {
-			$("#div-cnt-reg").html(data.results);
-		},
-		error: function (response) {
-			$("#div-cnt-reg").html('<div class="alert alert-danger text-center" role="alert"><i class="bi bi-x-circle align-middle"></i> ' +
-				'Error interno, intenta más tarde.</div>');
-		}
-	});
-};
-
-$(document).on("change", ".formAddImgAny", function (e) {
-	var fl = document.getElementById('fileimages');
-	var ln = fl.files.length;
-	var formData = new FormData();
-
-	if (ln <= 0) {
-		notify_msg("bi bi-x-circle", " ", "Seleccione al menos una imagen.", "#", "danger");
-		return;
-	} else {
-		for (var i = 0; i < ln; i++) {
-			formData.append('file', $('#fileimages')[0].files[i]);
-			formData.append("reg", reg);
-			$.ajax({
-				url: base_url + "/upImgPost",
-				data: formData,
-				type: 'POST',
-				contentType: false,
-				//cache: false,
-				processData: false,
-				xhr: function () {
-					var xhr = new window.XMLHttpRequest();
-					xhr.upload.addEventListener("progress", function (evt) {
-						if (evt.lengthComputable) {
-							var percentComplete = evt.loaded / evt.total;
-							percentComplete = parseInt(percentComplete * 100);
-							$('#progUpAnyImg').text(percentComplete + '%');
-							$('#progUpAnyImg').css('width', percentComplete + '%');
-						}
-					}, false);
-					return xhr;
-				},
-				beforeSend: function (objeto) {
-					$('#progUpAnyImg').removeAttr("class").attr("class", "bg-success text-center");
-					$('#progUpAnyImg').css('width', '0');
-					$('#btnUploadImgAny').attr("disabled", true);
-					$('#btnUploadImgAny').html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span>');
-				},
-				success: function (data) {
-					$('#progUpAnyImg').css('width', 100 + '%');
-					$('#progUpAnyImg').text('0%');
-					if (data.tipo == 'success') {
-						setTimeout(function () {
-							$('#progUpAnyImg').removeAttr("class").attr("class", "bg-default text-center");
-						}, 2000);
-						loadImagePost();
-					} else {
-						$('#progUpAnyImg').removeAttr("class").attr("class", "bg-danger text-center");
-						setTimeout(function () {
-							$('#progUpAnyImg').removeAttr("class").attr("class", "bg-default text-center");
-						}, 2000);
-					}
-					$('#btnUploadImgAny').attr("disabled", false);
-					$('#btnUploadImgAny').html('<i class="bi bi-cloud-upload"></i> Subir');
-					notifyMsg(data.msg, '#', data.tipo, '');
-				},
-				error: function (data) {
-					$('#btnUploadImgAny').attr("disabled", false);
-					$('#progUpAnyImg').css('width', 100 + '%');
-					$('#progUpAnyImg').text('0%');
-					$('#progUpAnyImg').removeAttr("class").attr("class", "bg-danger text-center");
-					$('#btnUploadImgAny').html('<i class="bi bi-cloud-upload"></i> Subir');
-					setTimeout(function () {
-						$('#progUpAnyImg').removeAttr("class").attr("class", "bg-default text-center");
-						$('#progUpAnyImg').text('0%');
-					}, 2000);
-					notifyMsg("Error interno, intenta más tarde.", '#', 'danger', '');
-				}
-			});
-		}
-	}
-	e.preventDefault();
-});
-
-$(document).on("submit", ".form-up-pos", function (e) {
-	const editorData = editor.getData();
-	$(".cnt-post").val(editorData);
-	if ($(".cnt-post").val() != '') {
-		$.ajax({
-			type: "POST",
-			dataType: "JSON",
-			method: "POST",
-			url: base_url + "/upPost",
-			data: new FormData(this),
-			contentType: false,
-			//cache: false,
-			processData: false,
-			beforeSend: function (objeto) {
-				$("#btn-up-post").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Validando...');
-				$('#btn-up-post').attr("disabled", true);
-			},
-			success: function (datos) {
-				$("#btn-up-post").html('<i class="bi bi-check-circle"></i> Actualizar');
-				$('#btn-up-post').attr("disabled", false);
-				if (datos.tipo == "success") {
-					$("#btn-up-post").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Actualizando');
-					$('#btn-up-post').attr("disabled", true);
-					setTimeout(function () {
-						$(window).attr('location', datos.url);
-					}, 2000);
-				}
-				if (datos.errors) {
-					jQuery.each(datos.errors, function (key, value) {
-						notifyMsg(value, '#', 'danger', '');
-					});
-				} else {
-					notifyMsg(datos.msg, '#', datos.tipo, '');
-				}
-			},
-			error: function (data) {
-				$("#btn-up-post").html('<i class="bi bi-check-circle"></i> Actualizar');
-				$("#btn-up-post").attr("disabled", false);
-				notifyMsg(data.statusText, '#', 'danger', '');
-			}
-		});
-	} else {
-		notify_msg("bi bi-x-circle", " ", "El contenido del artículo es necesario.", "#", "danger");
-	}
-	e.preventDefault();
-});
-
-function loadPermitsUser(reg) {
-	$.ajax({
-		url: base_url + "/loadPermitsPost",
-		method: "POST",
-		dataType: "JSON",
-		type: "POST",
-		data: {
-			reg: reg
-		},
-		beforeSend: function (objeto) {
-			$("#div-cnt-permits").html('<div class="col-md-12"><div class="alert alert-dark alert-dismissible text-center" role="alert">' +
-				'<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Cargando</div></div>');
-		},
-		success: function (data) {
-			$("#div-cnt-permits").html("");
-			$("#div-cnt-permits").html(data.results);
-		},
-		error: function (response) {
-			$("#div-cnt-permits").html('<div class="col-md-12"><div class="alert alert-danger alert-dismissible text-center" role="alert"><i class="bi bi-exclamation-circle"></i>' + ' Error interno, intenta más tarde.</div></div>');
-		}
-	})
-};
-
-$(document).on("submit", ".form-add-reg", function (e) {
-	var parametros = $(this).serialize();
-	const editorData = editor.getData();
-	$(".cnt-post").val(editorData);
-	$.ajax({
-		type: "POST",
-		dataType: "JSON",
-		method: "POST",
-		url: base_url + "/storePost",
-		data: new FormData(this),
-		contentType: false,
-		cache: false,
-		processData: false,
-		beforeSend: function (objeto) {
-			$('#btn-add-reg').attr("disabled", true);
-			$("#btn-add-reg").html('<span class="spinner-border spin-x" role="status" aria-hidden="true"></span> Agregando');
-		},
-		success: function (datos) {
-			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Agregar');
-			$('#btn-add-reg').attr("disabled", false);
-			if (datos.tipo == "success") {
-				$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Continuar');
-				$('#btn-add-reg').attr("disabled", true);
-				setTimeout(function () {
-					$(window).attr('location', datos.url);
-				}, 2000);
-			}
-			if (datos.errors) {
-				jQuery.each(datos.errors, function (key, value) {
-					notifyMsg(value, '#', 'danger', '');
-				});
-			} else {
-				notifyMsg(datos.msg, '#', datos.tipo, '');
-			}
-		},
-		error: function (data) {
-			$("#btn-add-reg").html('<i class="bi bi-check-circle"></i> Agregar');
-			$("#btn-add-reg").attr("disabled", false);
-			notifyMsg('Error interno, intenta más tarde.', '#', 'danger', '');
-		}
-	});
-	e.preventDefault();
 });
