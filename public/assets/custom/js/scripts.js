@@ -51,7 +51,7 @@
   
       btnToActive.classList.add('active')
       btnToActive.setAttribute('aria-pressed', 'true')
-      activeThemeIcon.setAttribute('class', (theme == 'dark' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill'))
+      activeThemeIcon.setAttribute('class', (theme == 'dark' ? 'bi bi-moon-stars-fill fs-4' : 'bi bi-sun-fill fs-4'))
       //const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
       //themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
   

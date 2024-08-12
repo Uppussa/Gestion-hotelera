@@ -67,4 +67,5 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::get('logs', 'LogController@listLogs')->name('logs');
     Route::match(['get', 'post'], 'loadLogs', 'LogController@loadLogs')->name('loadLogs');
     Route::post('delLog', 'LogController@delLog')->name('delLog');
+    Route::match(['get', 'post'], 'searchGlobal', 'SearchController@searchGlobal')->name('searchGlobal');
 });

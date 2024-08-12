@@ -19,4 +19,9 @@ class Log extends Model
     protected $dates = [
         'fc_log',
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

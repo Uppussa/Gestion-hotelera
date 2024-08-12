@@ -298,7 +298,7 @@ class LogController extends Controller
         $response['data'] = '';
         if ($total > 0) {
             $response['data'] .= '<div class="table-responsive"><table id="table-logs" class="table table-row-gray-200 table-hover kt_table_users">
-                <thead>
+                <thead class="table-light">
                     <tr class="row-link">
                         <th class="text-left w-5">
                             <div class="form-check form-check-sm form-check-custom me-3">
@@ -350,9 +350,13 @@ class LogController extends Controller
 
                 $response['data'] .= '<td>' . $reg->from_log . '</td>';
 
-                $response['data'] .= '<td>
-                                            ' . $reg->user_id . '
-                                        </td>';
+                $response['data'] .= '<td>';
+                
+                if ($reg->author) {
+                    $response['data'] .= $reg->author->name;
+                }
+
+                $response['data'] .= '</td>';
                 
                 $response['data'] .= '
                                         <td class="text-center">';

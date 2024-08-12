@@ -6,18 +6,37 @@
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        <div class="input-group">
-            <input class="form-control" type="text" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="btnNavbarSearch" />
-            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-        </div>
-    </form>
+    <div class="d-none d-md-inline-block ms-auto me-0 me-md-3 my-2 my-md-0">
+        
+    </div>
     <!-- Navbar-->
 
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 
+        <li class="no-cerrar nav-item dropdown">
+            <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
+                <i class="bi bi-search fs-4"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end" style="width: 300px;">
+                <div class="row p-3">
+                    <div class="col-md-12">
+                        <form action="post" class="form-search-global" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+                            <div class="input-group">
+                                <input class="form-control txtSearchGlobal" type="text" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="btnNavbarSearch" />
+                                <button class="btn btn-primary btnSearchGlobal" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <hr>
+                    </div>
+                    <div class="col-md-12 div-cnt-search-global max-h-32"></div>
+                </div>
+            </div>
+        </li>
+
         <li class="nav-item dropdown">
-            <button class="text-decoration-none text-white dropdown-toggle btn btn-link" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (dark)">
+            <button class="nav-link py-2 px-0 px-lg-2 text-white dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (dark)">
                 <i id="i-icon-them" class="bi bi-sun-fill text-white fs-4"></i>
             </button>
             <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="bd-theme-text">
