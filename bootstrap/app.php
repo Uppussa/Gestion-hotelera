@@ -11,7 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        web: \App\Http\Middleware\TrimStrings::class;
+        api: \App\Http\Middleware\TrimStrings::class;
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

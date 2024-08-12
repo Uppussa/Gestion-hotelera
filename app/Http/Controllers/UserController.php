@@ -160,10 +160,19 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         } else {
             $request['user_id'] = auth()->user()->id;
-
+            $request['email'] = Str::lower(trim($request->email));
             $request['password'] = Hash::make($request->password);
-
             $user = User::create($request->all());
+
+            Permit::create([
+                'status' => 1,
+                'level' => 1,
+                'url_module'=> 'profile',
+                'module_id' => 9,
+                'sub_module_id' => 10,
+                'user_id' => $user->id,
+            ]);
+
             $msg = ['tipo' => 'success',
                 'icon' => 'fa fa-check',
                 'url' => route('editUser', $user),
@@ -233,6 +242,7 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         } else {
             $datos = $request->except('id');
+            $datos['email'] = Str::lower(trim($request->email));
             if (User::where('id', $request->id)->update($datos) >= 0) {
                 $msg = ['tipo' => 'success',
                     'icon' => 'fa fa-check',
