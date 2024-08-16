@@ -1,9 +1,10 @@
-APP_NAME=linuxitos
+APP_NAME=DashTool
 APP_ENV=local
-APP_KEY=base64:IjueoWqsce5dSkUZJeCJrXBMHy+cpwZD5ESzmDBB/UI=
+APP_KEY=base64:IjueoWqsce5dSkUZJeCJrXBMHy+cpwZD5ESzmDBB/78=
 APP_DEBUG=true
 APP_TIMEZONE='America/Mexico_City'
 APP_URL=http://localhost/dashtool/
+pathFile=''
 
 APP_LOCALE=es
 APP_FALLBACK_LOCALE=en
