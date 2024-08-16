@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon;
 use App\Models\Cat;
+use App\Models\Log;
 use App\Models\Client;
 use App\Models\Office;
 use App\Models\SocialNetwork;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 function fecha($fecha = null, string $formato = 'd/m/Y')
 {
@@ -185,6 +187,15 @@ function redireccionar($page = 'dashboard', $message = 'Hola mundo', $tipo = 'in
     return redirect()->to($location)->send();
     //return redirect()->route('/');
     //exit;
+}
+
+function addLog($action, $tipo){
+    $data['action_log'] = $action;
+    $data['tipo_log'] = $tipo;
+    $data['from_log'] = Route::currentRouteName();//$from;
+    $data['ip_log'] = getRealIpAddr();
+    $data['user_id'] = auth()->user()?auth()->user()->id:0;
+    $reg = Log::create($data);
 }
 
 function displayNotify()

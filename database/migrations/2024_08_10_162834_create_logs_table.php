@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('table_log', 300)->nullable();
             $table->string('from_log', 300)->nullable();
             $table->foreignId('user_id');
-            $table->timestamps();
         });
     }
 
