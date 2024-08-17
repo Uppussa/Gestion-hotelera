@@ -113,6 +113,7 @@ class PostController extends Controller
                 'icon' => 'fa fa-check',
                 'url' => route('editPost', $reg->id),
                 'msg' => 'Registro guardado, redireccionando', ];
+            addLog('User add new post '.$reg->id, 'success');
         }
         return response()->json($msg);
     }
@@ -159,6 +160,7 @@ class PostController extends Controller
                     'url' => route('editPost', $reg),
                     'msg' => 'Registro guardado, recargando',
                 ];
+                addLog('User update post '.$reg->id, 'success');
             } else {
                 $msg = [
                     'tipo' => 'danger',
@@ -213,15 +215,20 @@ class PostController extends Controller
         $list = explode(',', $request->list);
         $edo = $request->slt_edo >= 0 ? $request->slt_edo : 1;
         $update = 0;
+        $upPosts = '';
         foreach ($list as $id) {
             if (Post::where('id', $id)->update(['status' => $edo])) {
                 $update++;
+                $upPosts = $upPosts.', '.$id;
             }
         }
         $estados[0] = 'eliminado'.($update > 1 ? 's' : '');
         $estados[1] = 'retirado'.($update > 1 ? 's' : '');
         $estados[2] = 'publicado'.($update > 1 ? 's' : '');
         $estados[3] = 'baneado'.($update > 1 ? 's' : '');
+        if ($update>0) {
+            addLog('User update status post '.$upPosts.', to ['.$estados[$edo].']', 'success');
+        }
         $msg = ['tipo' => 'success',
             'icon' => 'bi bi-check-circle',
             'msg' => $update.' registro'.($update > 1 ? 's' : '').' '.$estados[$edo], ];
