@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-12 offset-md-4">
+                            <div class="col-md-12 text-center">
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
@@ -79,6 +79,9 @@
                         </div>
                     </form>
                 </div>
+                <footer class="py-16 text-center text-sm text-black dark:text-white/70 small text-muted">
+                    Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                </footer>
             </div>
         </div>
     </div>

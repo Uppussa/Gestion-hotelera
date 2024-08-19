@@ -641,9 +641,9 @@ function dateRange( $first, $last, $step = '+1 day', $format = 'Y-m-d'){
 	$current 	= strtotime( $first );
 	$last 		= strtotime( $last );
 	while( $current <= $last ) {
-		if (date("D", $current)!='Sun') {
+		//if (date("D", $current)!='Sun') { //descomentar para no incluir domingos
 			$dates[] = date( $format, $current );
-		}
+		//} //descomentar para no incluir domingos
 		$current = strtotime( $step, $current );
 	}
 	return $dates;

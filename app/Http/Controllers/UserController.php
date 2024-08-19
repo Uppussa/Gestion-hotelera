@@ -172,7 +172,7 @@ class UserController extends Controller
                 'sub_module_id' => 10,
                 'user_id' => $user->id,
             ]);
-
+            addLog('User add user '.$user->id, 'success');
             $msg = ['tipo' => 'success',
                 'icon' => 'fa fa-check',
                 'url' => route('editUser', $user),
@@ -375,7 +375,7 @@ class UserController extends Controller
                                             </a>
                                             <a href="' . route('editUser', $reg) . '" class="text-gray-800 text-hover-primary mb-1">
                                                 ' . $reg->name . '
-                                                <i class="'.$reg->level->icon.' text-'.$reg->level->color.' float-end"></i>
+                                                 <span class="badge text-bg-'.$reg->level->color.' mx-2 mt-2 float-end"><i class="'.$reg->level->icon.'"></i> '.$reg->level->desc.'</span>
                                             </a>
                                         </td>
                                         <td class="text-center">';
