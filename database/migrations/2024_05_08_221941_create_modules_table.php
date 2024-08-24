@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('icon', 100)->nullable();
             $table->string('url_module', 300)->nullable()->comment('url main uses for dashboard');
             $table->string('color', 100)->default('info');
-            $table->string('url_sub_module', 100)->nullable()->comment('url by access to module');
             $table->tinyInteger('system')->default(0)->comment('1 is the system, 0 not');
             $table->string('show_on', 100)->nullable()->comment('where show module');
             $table->longText('query')->nullable()->comment('sql for total rows or content php');

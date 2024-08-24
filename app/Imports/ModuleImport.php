@@ -23,7 +23,6 @@ class ModuleImport implements ToModel, WithHeadingRow
             'icon' => $row['icon'],
             'url_module' => $row['url_module'],
             'color' => $row['color'],
-            'url_sub_module' => $row['url_sub_module'],
             'show_on' => $row['show_on'],
             'system' => $row['system'],
             'back_module_id' => $row['back_module_id'],
