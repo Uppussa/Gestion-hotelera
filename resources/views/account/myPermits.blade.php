@@ -24,7 +24,7 @@
 
 @endsection
 @section('script')
-	<script src="{{asset('public/assets/custom/ajx/account.js')}}"></script>
+	<script src="{{asset('public/app/ajx/account.js')}}"></script>
 	<script>
         var reg = {{auth()->user()->id}};
 		$(document).ready(function() {

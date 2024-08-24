@@ -3,7 +3,7 @@
         <table cellspacing="0" cellpadding="1" border="0" style="border:0px none black;">
             <tr>
                 <td style="text-align:left;">
-                    <img src="{{ asset('public/assets/custom/images/logo.png')}}" height="40">
+                    <img src="{{ asset('public/app/images/logo.png')}}" height="40">
                 </td>
                 <td style="text-align:right;" width="80%">
                     <span style="font-size:15px;">Reporte en PDF de usuarios</span><br>

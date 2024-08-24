@@ -89,7 +89,7 @@ class AccountController extends Controller
 
     public function loadImageUser(Request $request)
     {
-        $res['results'] = '<figure class="figure bd-placeholder-img rounded-circle"><img src="'.(!is_null(auth()->user()->avatar) && auth()->user()->avatar!='none.png'? asset(auth()->user()->avatar) : asset('public/assets/custom/images/404.png')).'" class="figure-img img-fluid img-circle bd-placeholder-img rounded-circle rounded" alt="Image"></figure>';
+        $res['results'] = '<figure class="figure bd-placeholder-img rounded-circle"><img src="'.(!is_null(auth()->user()->avatar) && auth()->user()->avatar!='none.png'? asset(auth()->user()->avatar) : asset('public/app/images/404.png')).'" class="figure-img img-fluid img-circle bd-placeholder-img rounded-circle rounded" alt="Image"></figure>';
         return response()->json($res);
     }
 

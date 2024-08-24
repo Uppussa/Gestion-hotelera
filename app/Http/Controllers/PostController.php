@@ -177,7 +177,7 @@ class PostController extends Controller
     {
         $reg = $request->reg ? $request->reg : 0;
         $reg = Post::find($reg);
-        $res['results'] = '<figure class="figure rounded"><img src="'.(!is_null($reg->image) && $reg->image!=''? asset($reg->image) : asset('public/assets/custom/images/404.png')).'" class="figure-img img-fluid rounded" alt="Image"></figure>';
+        $res['results'] = '<figure class="figure rounded"><img src="'.(!is_null($reg->image) && $reg->image!=''? asset($reg->image) : asset('public/app/images/404.png')).'" class="figure-img img-fluid rounded" alt="Image"></figure>';
 
         return response()->json($res);
     }
@@ -289,7 +289,7 @@ class PostController extends Controller
                                         </td>
                                         <td class="">    
                                             <a href="' . route('editPost', $reg) . '">
-                                                <img class="rounded-circle" src="'.($reg->image!=null? $reg->image : 'public/assets/custom/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
+                                                <img class="rounded-circle" src="'.($reg->image!=null? $reg->image : 'public/app/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
                                             </a>
                                             <a href="' . route('editPost', $reg) . '" class="text-gray-800 text-hover-primary mb-1">
                                                 ' . $reg->title . '
@@ -413,7 +413,7 @@ class PostController extends Controller
                                     </td>
                                     <td class="">    
                                         <a href="' . route('editPost', $reg) . '">
-                                            <img class="rounded-circle" src="'.($reg->image!=null? $reg->image : 'public/assets/custom/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
+                                            <img class="rounded-circle" src="'.($reg->image!=null? $reg->image : 'public/app/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
                                         </a>
                                         <a href="' . route('editPost', $reg) . '" class="text-gray-800 text-hover-primary mb-1">
                                             ' . $reg->title . '

@@ -879,3 +879,7 @@ input[type="time"]:before {
 .has-float-label .is-invalid {
     border-color: #f1aeb5 !important;
 }
+.login-bg {
+    background: url(../images/back.svg) no-repeat center center #505050;
+    background-size: cover;
+}

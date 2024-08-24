@@ -1,19 +1,15 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-
     <div class="row justify-content-center">
-        <div class="col-md-5 text-center mb-3">
-            <img src="{{asset('public/assets/custom/images/logo.svg')}}"" alt="" height="100">
+        <div class="col-md-5 text-center mb-3 mt-10">
+            <img src="{{asset('public/app/images/logo.svg')}}"" alt="" height="100">
         </div>
     </div>
-
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card shadow p-3">
-
                 <h5 class="card-title mb-3 mt-3 text-center">Inicio de Sesión</h5>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -69,12 +65,17 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-6">
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{route('register')}}" class="btn btn-link float-end">
+                                    <i class="fal fa-user-plus"></i> Registrarse
+                                </a>
                             </div>
                         </div>
                     </form>
