@@ -755,7 +755,7 @@ function inputText($field, $label = false, $value = null, $icon = 'bi bi-card-te
     return $component;
 }
 
-function inputSelect($field, $label = false, $val = null, $values = [], $options = [])
+function inputSelect($field, $label = false, $val = null, $values = [], $options = [], $icon = 'bi bi-check2-square')
 {
     $optionsField = getFieldOptions(Arr::except($options, ['suffix', 'prefix']), $field);
     $optionsField['class'] = $optionsField['class'].' form-control form-select';
@@ -768,6 +768,7 @@ function inputSelect($field, $label = false, $val = null, $values = [], $options
     }
     $component .= '</select>
                     <label for="'.$field.'">'.($label != false ? $label : '').'</label>
+                    <i class="'.$icon.' form-icon-select"></i>
                     </span>
                 </div>';
 
