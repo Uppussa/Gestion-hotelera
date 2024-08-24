@@ -898,3 +898,14 @@ input[type="time"]:before {
     background: url(../images/back.svg) no-repeat center center #505050;
     background-size: cover;
 }
+.form-button {
+    top: 22px;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    margin-top: 1px;
+    /*left: 0;*/
+    width: 34px;
+    height: 34px;
+    pointer-events: auto;
+}

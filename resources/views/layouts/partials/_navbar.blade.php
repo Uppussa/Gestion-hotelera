@@ -21,9 +21,9 @@
                 <div class="row p-3">
                     <div class="col-md-12">
                         <form action="post" class="form-search-global" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-                            <div class="input-group">
+                            <div class="form-group">
                                 <input class="form-control txtSearchGlobal" type="text" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="btnNavbarSearch" />
-                                <button class="btn btn-primary btnSearchGlobal" type="submit">
+                                <button class="btn btn-link btnSearchGlobal form-button" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
