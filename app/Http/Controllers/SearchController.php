@@ -34,12 +34,12 @@ class SearchController extends Controller
         })->get();
 
 
-        if ($permisos) {
-            $res['search'] .= '<ul class="list-unstyled">';
+        if (count($permisos)>0) {
+            $res['search'] .= '<ul class="list-unstyled"><li>Secciones</li>';
 
             foreach ($permisos as $permiso) {
                 $res['search'] .= '<li><a class="dropdown-item" href="'.route($permiso->module->url_module).'">
-                        <i class="fs-5 mt-2 '.$permiso->module->icon.'"></i> '.$permiso->module->desc.'</a></li>';
+                        <i class="fs-6 mt-5 '.$permiso->module->icon.'"></i> '.$permiso->module->desc.'</a></li>';
             }
             $res['search'] .= '</ul>';
 
