@@ -102,8 +102,7 @@ Asignar permisos al directorio del proyecto.
 sudo chmod 775 -R /opt/lampp/htdocs/dashtool
 ```
 
-
-## Pruebas
+# Pruebas
 Para las pruebas correspondientes abrir el navegador con la ruta que se configure:
 
 <http://localhost/dashtool>

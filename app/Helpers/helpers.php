@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon;
 use App\Models\Cat;
+use App\Models\Log;
 use App\Models\Client;
 use App\Models\Office;
 use App\Models\SocialNetwork;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 function fecha($fecha = null, string $formato = 'd/m/Y')
 {
@@ -185,6 +187,15 @@ function redireccionar($page = 'dashboard', $message = 'Hola mundo', $tipo = 'in
     return redirect()->to($location)->send();
     //return redirect()->route('/');
     //exit;
+}
+
+function addLog($action, $tipo){
+    $data['action_log'] = $action;
+    $data['tipo_log'] = $tipo;
+    $data['from_log'] = Route::currentRouteName();//$from;
+    $data['ip_log'] = getRealIpAddr();
+    $data['user_id'] = auth()->user()?auth()->user()->id:0;
+    $reg = Log::create($data);
 }
 
 function displayNotify()
@@ -630,9 +641,9 @@ function dateRange( $first, $last, $step = '+1 day', $format = 'Y-m-d'){
 	$current 	= strtotime( $first );
 	$last 		= strtotime( $last );
 	while( $current <= $last ) {
-		if (date("D", $current)!='Sun') {
+		//if (date("D", $current)!='Sun') { //descomentar para no incluir domingos
 			$dates[] = date( $format, $current );
-		}
+		//} //descomentar para no incluir domingos
 		$current = strtotime( $step, $current );
 	}
 	return $dates;
@@ -744,7 +755,7 @@ function inputText($field, $label = false, $value = null, $icon = 'bi bi-card-te
     return $component;
 }
 
-function inputSelect($field, $label = false, $val = null, $values = [], $options = [])
+function inputSelect($field, $label = false, $val = null, $values = [], $options = [], $icon = 'bi bi-check2-square')
 {
     $optionsField = getFieldOptions(Arr::except($options, ['suffix', 'prefix']), $field);
     $optionsField['class'] = $optionsField['class'].' form-control form-select';
@@ -757,6 +768,7 @@ function inputSelect($field, $label = false, $val = null, $values = [], $options
     }
     $component .= '</select>
                     <label for="'.$field.'">'.($label != false ? $label : '').'</label>
+                    <i class="'.$icon.' form-icon-select"></i>
                     </span>
                 </div>';
 

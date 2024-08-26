@@ -147,7 +147,7 @@
 
 @endsection
 @section('script')
-	<script src="{{asset('public/assets/custom/ajx/ajxusers.js')}}"></script>
+	<script src="{{asset('public/app/ajx/ajxusers.js')}}"></script>
 	<script>
 		$(document).ready(function() {
             load(1);

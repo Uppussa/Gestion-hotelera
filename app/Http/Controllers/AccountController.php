@@ -89,7 +89,7 @@ class AccountController extends Controller
 
     public function loadImageUser(Request $request)
     {
-        $res['results'] = '<figure class="figure bd-placeholder-img rounded-circle"><img src="'.(!is_null(auth()->user()->avatar) && auth()->user()->avatar!='none.png'? asset(auth()->user()->avatar) : asset('public/assets/custom/images/404.png')).'" class="figure-img img-fluid img-circle bd-placeholder-img rounded-circle rounded" alt="Image"></figure>';
+        $res['results'] = '<figure class="figure bd-placeholder-img rounded-circle"><img src="'.(!is_null(auth()->user()->avatar) && auth()->user()->avatar!='none.png'? asset(auth()->user()->avatar) : asset('public/app/images/404.png')).'" class="figure-img img-fluid img-circle bd-placeholder-img rounded-circle rounded" alt="Image"></figure>';
         return response()->json($res);
     }
 
@@ -222,16 +222,19 @@ class AccountController extends Controller
     {
         $validator = Validator::make($request->all(), $this->validationRulesUpPassword, $this->errorMessagesUpPassword)->setAttributeNames($this->attributeNamesUpPassword);
         if ($validator->fails()) {
+            addLog('User try update password '.$request->email, 'success');
             return response()->json(['errors' => $validator->errors()->all()]);
         } else {
             if (auth()->user()->update(['password' => Hash::make($request->new_password)])) {
                 $msg = ['tipo' => 'success',
                     'icon' => 'fa fa-check',
                     'msg' => 'Contraseña actualizada', ];
+                addLog('User updated password '.$request->email, 'success');
             } else {
                 $msg = ['tipo' => 'danger',
                     'icon' => 'fa fa-times',
                     'msg' => 'Error interno, intenta más tarde.', ];
+                addLog('User try update password '.$request->email, 'success');
             }
         }
 

@@ -1,7 +1,7 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="{{route('home')}}">
-        <img src="{{asset('public/assets/custom/images/logo.svg')}}" alt="" height="40"> {{env('APP_NAME')}}
+        <img src="{{asset('public/app/images/logo.svg')}}" alt="" height="40"> {{env('APP_NAME')}}
     </a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -21,9 +21,9 @@
                 <div class="row p-3">
                     <div class="col-md-12">
                         <form action="post" class="form-search-global" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-                            <div class="input-group">
+                            <div class="form-group">
                                 <input class="form-control txtSearchGlobal" type="text" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="btnNavbarSearch" />
-                                <button class="btn btn-primary btnSearchGlobal" type="submit">
+                                <button class="btn btn-link btnSearchGlobal form-button" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
@@ -55,7 +55,7 @@
 
         <li class="no-cerrar nav-item dropdown">
             <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
-                <img src="{{(!is_null(auth()->user()->avatar) && auth()->user()->avatar!='none.png'? asset(auth()->user()->avatar) : asset('public/assets/custom/images/404.png'))}}" alt="mdo" width="32" height="32" class="rounded-circle"> {{ auth::user()->name }}
+                <img src="{{(!is_null(auth()->user()->avatar) && auth()->user()->avatar!='none.png'? asset(auth()->user()->avatar) : asset('public/app/images/404.png'))}}" alt="mdo" width="32" height="32" class="rounded-circle"> {{ auth::user()->name }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>

@@ -35,7 +35,7 @@
                         <div class="col-md-2">
                             <div class="card mt-3">
                                 <div class="card-body">
-                                    <figure class="figure bd-placeholder-img rounded-circle"><img src="{{(!is_null($reg->avatar) && $reg->avatar!='none.png'? asset($reg->avatar) : asset('public/assets/custom/images/404.png'))}}" class="figure-img img-fluid img-circle bd-placeholder-img rounded-circle rounded" alt="Image"></figure>
+                                    <figure class="figure bd-placeholder-img rounded-circle"><img src="{{(!is_null($reg->avatar) && $reg->avatar!='none.png'? asset($reg->avatar) : asset('public/app/images/404.png'))}}" class="figure-img img-fluid img-circle bd-placeholder-img rounded-circle rounded" alt="Image"></figure>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
 </div>
 @endsection
 @section('script')
-	<script src="{{asset('public/assets/custom/ajx/ajxusers.js')}}"></script>
+	<script src="{{asset('public/app/ajx/ajxusers.js')}}"></script>
 	<script>
 		reg = {{$reg->id}};
         loadInfoUser(reg);

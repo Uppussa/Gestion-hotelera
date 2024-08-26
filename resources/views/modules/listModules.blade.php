@@ -104,7 +104,7 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('public/assets/custom/ajx/ajxmodule.js')}}"></script>
+    <script src="{{asset('public/app/ajx/ajxmodule.js')}}"></script>
     <script>
         $(document).ready(function() {
             load(1);

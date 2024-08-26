@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5 text-center mb-3">
-            <img src="{{asset('public/assets/custom/images/logo.svg')}}"" alt="" height="100">
+            <img src="{{asset('public/app/images/logo.svg')}}"" alt="" height="100">
         </div>
     </div>
 
@@ -89,7 +89,12 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <a href="{{route('login')}}" class="btn btn-link">
+                                    <i class="fal fa-sign-in"></i> Iniciar sesión
+                                </a>
+                            </div>
+                            <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary float-end">
                                     {{ __('Register') }} <i class="bi bi-person-plus"></i>
                                 </button>

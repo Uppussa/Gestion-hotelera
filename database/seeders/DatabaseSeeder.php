@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PermitSeeder::class,
             LogSeeder::class,
+            PostSeeder::class,
         ]);
     }
 }

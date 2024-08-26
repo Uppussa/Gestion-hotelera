@@ -63,7 +63,7 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('public/assets/custom/ajx/ajxgraph.js')}}"></script>
+    <script src="{{asset('public/app/ajx/ajxgraph.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(document).on("click", ".btnAlerta", function (e) {

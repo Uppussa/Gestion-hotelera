@@ -85,7 +85,7 @@
 </div>
 @endsection
 @section('script')
-	<script src="{{asset('public/assets/custom/ajx/ajxpost.js')}}"></script>
+	<script src="{{asset('public/app/ajx/ajxpost.js')}}"></script>
 	<script>
 		reg = {{$reg->id}};
         loadImagePost();

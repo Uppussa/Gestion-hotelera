@@ -172,7 +172,7 @@ class UserController extends Controller
                 'sub_module_id' => 10,
                 'user_id' => $user->id,
             ]);
-
+            addLog('User add user '.$user->id, 'success');
             $msg = ['tipo' => 'success',
                 'icon' => 'fa fa-check',
                 'url' => route('editUser', $user),
@@ -277,7 +277,7 @@ class UserController extends Controller
                         <div class="form-check form-switch">
                             <input class="form-check-input add-permit" type="checkbox" role="switch" id="permit-'.$subModule->id.'" data-sub="'.$subModule->id.'" data-moduleId="'.$module->id.'" data-subModuleId="'.$subModule->id.'" data-userId="'.$data['user'].'" '.($userPermit?'checked="checked"':"").' data-urlSubModule="'.$subModule->url_module.'">
                             <label class="form-check-label" for="permit-'.$subModule->id.'">
-                               <span class="badge small fw-light text-bg-'.$subModule->color.'">'.$subModule->type.'</span> '.$subModule->desc.'
+                               <span class="badge small fw-light text-bg-'.($subModule->type == 'module' ? 'dark' : 'primary').'">'.$subModule->type.'</span> '.$subModule->desc.'
                             </label>
                             <span id="span-'.$subModule->id.'" class="float-end"></span>
                         </div>
@@ -371,11 +371,11 @@ class UserController extends Controller
                                         </td>
                                         <td class="">    
                                             <a href="' . route('editUser', $reg) . '">
-                                                <img class="rounded-circle" src="'.($reg->avatar!='none.png' && file_exists($reg->avatar)? $reg->avatar : 'public/assets/custom/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
+                                                <img class="rounded-circle" src="'.($reg->avatar!='none.png' && file_exists($reg->avatar)? $reg->avatar : 'public/app/images/404.png' ).'" alt="" width="32" height="32" ' . '/>
                                             </a>
                                             <a href="' . route('editUser', $reg) . '" class="text-gray-800 text-hover-primary mb-1">
                                                 ' . $reg->name . '
-                                                <i class="'.$reg->level->icon.' text-'.$reg->level->color.' float-end"></i>
+                                                 <span class="badge text-bg-'.$reg->level->color.' mx-2 mt-2 float-end"><i class="'.$reg->level->icon.'"></i> '.$reg->level->desc.'</span>
                                             </a>
                                         </td>
                                         <td class="text-center">';

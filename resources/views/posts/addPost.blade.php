@@ -47,7 +47,7 @@
 
 @endsection
 @section('script')
-	<script src="{{asset('public/assets/custom/ajx/ajxpost.js')}}"></script>
+	<script src="{{asset('public/app/ajx/ajxpost.js')}}"></script>
 	<script>
 		$(document).ready(function() {
             let editor;
