@@ -68,4 +68,13 @@ Route::namespace('App\Http\Controllers')->middleware(['auth'])->group(function (
     Route::match(['get', 'post'], 'loadLogs', 'LogController@loadLogs')->name('loadLogs');
     Route::post('delLog', 'LogController@delLog')->name('delLog');
     Route::match(['get', 'post'], 'searchGlobal', 'SearchController@searchGlobal')->name('searchGlobal');
+
+     //reservas
+     Route::get('listRevs', 'ReservaController@listRevs')->name('listRevs');
+     Route::get('editReserva/{id}', 'ReservaController@editReserva')->name('editReserva');
+     Route::get('crearReserva', 'ReservaController@crearReserva')->name('crearReserva');
+     Route::post('storeReserva', 'ReservaController@storeReserva')->name('storeReserva');
+     Route::post('updateReserva', 'ReservaController@updateReserva')->name('updateReserva');
+     Route::post('delReserva', 'ReservaController@delReserva')->name('delReserva');
+     Route::post('loadReservas', 'ReservaController@loadReservas')->name('loadReservas');
 });
