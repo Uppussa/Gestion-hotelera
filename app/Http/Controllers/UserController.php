@@ -277,7 +277,7 @@ class UserController extends Controller
                         <div class="form-check form-switch">
                             <input class="form-check-input add-permit" type="checkbox" role="switch" id="permit-'.$subModule->id.'" data-sub="'.$subModule->id.'" data-moduleId="'.$module->id.'" data-subModuleId="'.$subModule->id.'" data-userId="'.$data['user'].'" '.($userPermit?'checked="checked"':"").' data-urlSubModule="'.$subModule->url_module.'">
                             <label class="form-check-label" for="permit-'.$subModule->id.'">
-                               <span class="badge small fw-light text-bg-'.$subModule->color.'">'.$subModule->type.'</span> '.$subModule->desc.'
+                               <span class="badge small fw-light text-bg-'.($subModule->type == 'module' ? 'dark' : 'primary').'">'.$subModule->type.'</span> '.$subModule->desc.'
                             </label>
                             <span id="span-'.$subModule->id.'" class="float-end"></span>
                         </div>

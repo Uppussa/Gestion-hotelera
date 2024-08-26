@@ -204,7 +204,11 @@ class ModuleController extends Controller
                 $response['data'] .= '<td class="text-center">'.$reg->show_on.'</td>';
                 $response['data'] .= '<td class="text-center">';
                 $response['data'] .= '<button type="button" class="btn btn-link mdl-up-reg btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#mdl-up-sub-module" data-idreg="' . $reg->id . '" data-modid="' . $reg->module_id . '"><i class="fa fa-edit text-primary"></i></button>';
-                $response['data'] .= '<button class="btn btn-link mdl-del-reg" data-id="'.$reg->id.'" data-modid="'.$reg->module_id.'" data-nom="'.$reg->nom.'" data-bs-toggle="modal" data-bs-target="#del-regs"><i class="text-danger bi bi-trash"></i></button>';
+
+
+                if ($reg->system==0) {
+                    $response['data'] .= '<button class="btn btn-link mdl-del-reg" data-id="'.$reg->id.'" data-modid="'.$reg->module_id.'" data-nom="'.$reg->nom.'" data-bs-toggle="modal" data-bs-target="#del-regs"><i class="text-danger bi bi-trash"></i></button>';
+                }
                 $response['data'] .= '</td></tr>';
             }
             $response['data'] .= '</tbody></table></div>';
